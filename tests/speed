@@ -1,0 +1,36 @@
+ns.hashTest = function(){
+       (function(){
+              var moo = new ns.util.HashMap();
+              var circuits = 99999, start = new Date();
+              while (circuits--) {
+                     moo.put(parseInt(Math.random()*1000,10).toString(), Math.random());
+              }
+              var end = new Date();
+              window.console.log('scotthashmap ' + moo.size() + ' random entries put into hashmap in ' + (end.valueOf() - start.valueOf()) / 1000 + ' seconds');
+
+              circuits = 99999;
+              start = new Date();
+              while (circuits--) {
+                     moo.get(parseInt(Math.random()*1000,10));
+              }
+              end = new Date();
+              window.console.log('scotthashmap ' + moo.size() + ' random entries read out of hashmap in ' + (end.valueOf() - start.valueOf()) / 1000 + ' seconds');
+       })();
+       (function(){
+              var moo = new Hashtable();
+              var fake = false, circuits = 99999, start = new Date();
+              while (circuits--) {
+                     moo.put(parseInt(Math.random()*1000,10).toString(), Math.random());
+              }
+              var end = new Date();
+              window.console.log('jshashtable: ' + moo.size() + ' random entries put into hashtable in ' + (end.valueOf() - start.valueOf()) / 1000 + ' seconds');
+              
+              circuits = 99999;
+              start = new Date();
+              while (circuits--) {
+                     moo.get(parseInt(Math.random()*1000,10).toString());
+              }
+              end = new Date();
+              window.console.log('jshashtable: ' + moo.size() + ' random entries read out of hashtable in ' + (end.valueOf() - start.valueOf()) / 1000 + ' seconds');
+       })();
+};
