@@ -32,14 +32,13 @@
 J$.reqNameSpace('J$.controllers');
 J$.controllers.BaseController = (function(){
 	/** Private methods **/
-	var renderView = function(){
-		
-	};
 	/** Public methods **/
 	return {
-		createView:function(ns,view){
+		callView:function(ns,view){
 			if(typeof ns[view] === "function"){
-				ns[view] = new ns[view](this);
+				ns[view] = new ns[view]();
+				ns[view].controller = this;
+				this.view = ns[view];
 			}
 			return ns[view];
 		}

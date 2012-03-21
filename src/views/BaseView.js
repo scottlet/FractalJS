@@ -32,7 +32,7 @@
 J$.reqNameSpace('J$.views');
 J$.views.BaseView = (function(){
 	/** PRIVATE METHODS **/
-	var defaults;
+	var defaults=[];
 	
 	var loadComponents = function(ns,arr,view,defaults){
 		var l = arr.length;
@@ -61,11 +61,11 @@ J$.views.BaseView = (function(){
 		 */
 		setDefaultComponents:function(ns,arr){
 			defaults=[];
-			loadComponents(ns,arr,defaults);
+			loadComponents(ns, arr, null, true);
 		},
 		requires:function(ns,arr,view){
-			var uiMap = J$.util.combineArrays(arr,null,defaults);
-			loadComponents(ns,arr);
+			var uiMap = J$.utils.ArrayUtils.combine(arr,defaults);
+			loadComponents(ns,arr, view);
 		}
 	};
 })();

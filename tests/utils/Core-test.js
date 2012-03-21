@@ -1,8 +1,8 @@
 TestCase("testCore", {
-	putTest : function () {
+	testPut : function () {
 		expectAsserts(0);
 	},
-	clearTest : function () {
+	testClear : function () {
 		expectAsserts(0);
 	}
 });

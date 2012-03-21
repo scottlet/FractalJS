@@ -3,10 +3,9 @@
  */
 var J$ = (function() {
 	/** PRIVATE METHODS **/
-	var createInstance = function(item,inheritant){
+	var extend = function(item,inheritant){
 		item.prototype = inheritant;
 		item.constructor = item;
-		return new item();
 	};
 	return {
 		/** API METHODS **/
@@ -79,13 +78,13 @@ var J$ = (function() {
 	
 		})(),
 		createController : function(object){
-			return createInstance(object,J$.controllers.BaseController);
+			return extend(object, J$.controllers.BaseController);
 		},
 		createView : function(object){
-			return createInstance(object,J$.controllers.BaseView);
+			return extend(object, J$.views.BaseView);
 		},
 		createUI : function(object){
-			return createInstance(object,J$.controllers.BaseUI);
+			return extend(object, J$.uis.BaseUI);
 		}
 	};
 })();

@@ -1,8 +1,19 @@
+var foo = function(){
+	this.myFunction = function () {
+		return 'my function';
+	};
+};
 TestCase("testBaseController", {
-	putTest : function () {
-		expectAsserts(0);
+	testCreateController : function () {
+		expectAsserts(3);
+		assertNoException(function () {
+			J$.createController(foo);
+			foo = new foo();
+		});
+		assertEquals(foo.myFunction(), 'my function');
+		assertFunction(foo.callView);
 	},
-	clearTest : function () {
+	testClear : function () {
 		expectAsserts(0);
 	}
 });

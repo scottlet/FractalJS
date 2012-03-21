@@ -40,8 +40,8 @@ J$.utils.ArrayUtils = (function(){
 	return {
 		combine: function (arr1, arr2) {
 			var tarr = arr1.concat(arr2), l = tarr.length, o = {}, ret = [];
-			while (l--) {
-				o[tarr[l]] = true;
+			for (var n = 0; n < l; n++) {
+				o[tarr[n]] = true;
 			}
 			for (var name in o) {
 				if(o.hasOwnProperty(name)) {

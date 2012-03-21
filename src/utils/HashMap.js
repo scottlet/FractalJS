@@ -28,7 +28,7 @@
 J$.reqNameSpace('J$.utils');
 
 (function (utils) {
-	HashMap = function () {
+	var HashMap = function () {
 		var that = this, o = {}, len = 0, cloneret = {}, ksret = [], vret = [];
 		/** PRIVATE METHODS **/
 		var cempty = function(){
@@ -40,10 +40,9 @@ J$.reqNameSpace('J$.utils');
 			o = {};
 		};
 		var clone = function(){
-			for (var k in o) {
-				cloneret[k] = o[k];
-			}
-			return cloneret;
+			var ret = new HashMap();
+			ret.putAll(o);
+			return ret;
 		};
 		var containsKey = function(inkey){
 			return (o[inkey]) ? true : false;
@@ -60,13 +59,13 @@ J$.reqNameSpace('J$.utils');
 			return o[inkey];
 		};
 		var entrySet = function(){
-			ns.Console.warn('not implemented');
+			throw('not implemented');
 		};
 		var isEmpty = function(){
 			return !len;
 		};
 		var keySet = function(){
-			if (!ksret) {
+			if (!ksret.length) {
 				for (var k in o) {
 					ksret.push(k);
 				}
@@ -102,12 +101,12 @@ J$.reqNameSpace('J$.utils');
 		var toString = function(){
 			var ret = [];
 			for (var k in o) {
-				ret.push('{' + k + '=' + o[k] + '}');
+				ret.push(k + '=' + o[k]);
 			}
 			return ret.join();
 		};
 		var values = function(){
-			if (!vret) {
+			if (!vret.length) {
 				for (var k in o) {
 					vret.push(o[k]);
 				}
