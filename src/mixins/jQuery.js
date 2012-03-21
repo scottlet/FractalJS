@@ -1,8 +1,8 @@
 /**
  * @author scottvanlooy
  */
-J$.reqNameSpace('J$.mixins');
-J$.mixins.UI = function(object){
+FF.reqNameSpace('FF.mixins');
+FF.mixins.UI = function(object){
 	var OBJMIXINS = {
 		open:function(callback){
 			var that = that || this;

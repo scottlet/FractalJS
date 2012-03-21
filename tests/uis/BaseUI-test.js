@@ -1,4 +1,6 @@
-TestCase("testBaseUI", {
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+TestCase("Test the BaseUI object", {
 	testPut : function () {
 		expectAsserts(0);
 	},

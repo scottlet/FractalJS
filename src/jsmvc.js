@@ -1,7 +1,9 @@
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: false, indent: 4 */
+/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * @author scottvanlooy
  */
-var J$ = (function() {
+var FF = (function () {
 	/** PRIVATE METHODS **/
 	var extend = function(item,inheritant){
 		item.prototype = inheritant;
@@ -78,13 +80,13 @@ var J$ = (function() {
 	
 		})(),
 		createController : function(object){
-			return extend(object, J$.controllers.BaseController);
+			return extend(object, FF.controllers.BaseController);
 		},
 		createView : function(object){
-			return extend(object, J$.views.BaseView);
+			return extend(object, FF.views.BaseView);
 		},
 		createUI : function(object){
-			return extend(object, J$.uis.BaseUI);
+			return extend(object, FF.uis.BaseUI);
 		}
 	};
 })();
@@ -92,7 +94,7 @@ var J$ = (function() {
 /** Core library requires **/
 /** INCLUDES **/
 
-J$.requires(
+FF.requires(
 	[
 		// utils
 		'utils.Core',
