@@ -28,6 +28,7 @@ HelloNamespace.Controller = function(){
 	};
 	init();
 };
+HelloNamespace.Controller = J$.createController(HelloNamespace.Controller);
 
 /**
  * View - controls the UIs in the front end.
@@ -49,6 +50,7 @@ HelloNamespace.View = function(controller){
 	};
 	init();
 };
+HelloNamespace.View = J$.createView(HelloNamespace.View);
 
 HelloNamespace.uis.HelloWorld = function(view){
 	var that=this;
@@ -58,6 +60,4 @@ HelloNamespace.uis.HelloWorld = function(view){
 	};
 	init();
 };
-HelloNamespace.Controller = J$.createController(HelloNamespace.Controller);
-HelloNamespace.View = J$.createView(HelloNamespace.View);
 HelloNamespace.uis.HelloWorld = J$.createUI(HelloNamespace.uis.HelloWorld);
