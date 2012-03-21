@@ -29,86 +29,96 @@ J$.reqNameSpace('J$.utils');
 
 (function (utils) {
 	var HashMap = function () {
-		var that = this, o = {}, len = 0, cloneret = {}, ksret = [], vret = [];
+				var that = this, o = {}, len = 0, cloneret = {}, ksret = [], vret = [];
 		/** PRIVATE METHODS **/
-		var cempty = function(){
+		var cempty = function () {
 			cloneret = {};
 			ksret = [];
 			vret = [];
 		};
-		var clear = function(){
+		var clear = function () {
 			o = {};
 		};
-		var clone = function(){
+		var clone = function () {
 			var ret = new HashMap();
 			ret.putAll(o);
 			return ret;
 		};
-		var containsKey = function(inkey){
+		var containsKey = function (inkey) {
 			return (o[inkey]) ? true : false;
 		};
-		var containsValue = function(inval){
+		var containsValue = function (inval) {
 			for (var k in o) {
-				if (o[k] === inval) {
-					return true;
+				if (o.hasOwnProperty(k)) {
+					if (o[k] === inval) {
+						return true;
+					}
+					return false;
 				}
-				return false;
 			}
 		};
-		var get = function(inkey){
+		var get = function (inkey) {
 			return o[inkey];
 		};
-		var entrySet = function(){
-			throw('not implemented');
+		var entrySet = function () {
+			throw ('not implemented');
 		};
-		var isEmpty = function(){
+		var isEmpty = function () {
 			return !len;
 		};
-		var keySet = function(){
+		var keySet = function () {
 			if (!ksret.length) {
 				for (var k in o) {
-					ksret.push(k);
+					if (o.hasOwnProperty(k)) {
+						ksret.push(k);
+					}
 				}
 			}
 			return ksret;
 		};
-		var put = function(inkey, inval){
+		var put = function (inkey, inval) {
 			cempty();
 			if (!o[inkey]) {
 				len++;
 			}
 			o[inkey] = inval;
 		};
-		var putAll = function(inmap){
+		var putAll = function (inmap) {
 			cempty();
 			for (var k in inmap) {
-				if (!o[k]) {
-					len++;
+				if (inmap.hasOwnProperty(k)) {
+					if (!o[k]) {
+						len++;
+					}
+					o[k] = inmap[k];
 				}
-				o[k] = inmap[k];
 			}
 		};
-		var remove = function(inkey){
+		var remove = function (inkey) {
 			if (o[inkey]) {
 				delete o[inkey];
 				len--;
 			}
 			cempty();
 		};
-		var size = function(){
+		var size = function () {
 			return len;
 		};
-		var toString = function(){
+		var toString = function () {
 			var ret = [];
 			for (var k in o) {
-				ret.push(k + '=' + o[k]);
+				if (o.hasOwnProperty(k)) {
+					ret.push(k + '=' + o[k]);
+				}
 			}
 			return ret.join();
 		};
-		var values = function(){
+		var values = function () {
 			if (!vret.length) {
 				for (var k in o) {
-					vret.push(o[k]);
+					if (o.hasOwnProperty(k)) {
+						vret.push(o[k]);
+					}
 				}
 			}
 			return vret;
@@ -130,6 +140,6 @@ J$.reqNameSpace('J$.utils');
 			toString : toString,
 			values : values
 		};
-	}
+	};
 	utils.HashMap = HashMap;
 }(J$.utils));
