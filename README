@@ -23,7 +23,15 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-GOAL:
+UPDATED GOAL:
+MVC Javascript on both server running Node and client. The same code is run in both, the framework works out what to do with it.
+NOTE: Only the client is finished.
+
+The framework is tiny. 4k minified, 1.5k gzipped. I need to document it somewhat. 
+
+Scott, 22 Mar 2012.
+
+ORIGINAL GOAL:
 This is a project that has grown out of my day to day work to create a lightweight, jquery compatible MVC framework for creating a Javascript front end application. 
 It will be simple to use and encourage jQuery and Javascript best practice as well as CSS namespacing.
 It will never be complete, there's always more and better ways of doing things than will be encapsulated here.
