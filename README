@@ -32,6 +32,9 @@ I'm currently building the library, so don't try and use it until there are samp
 Scott, 19 Sept 2011.
 
 CHANGELOG:
+22-Mar-12
+=========
+I worked out a while back that there was already a JSMVC, so renamed the thing in my mind. Refactored for rename.
 21-Mar-12:
 =========
 Finally got JsTestDriver running properly, added tests for a lot of things and refactored some other stuff.
