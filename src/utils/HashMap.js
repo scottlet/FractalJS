@@ -1,3 +1,5 @@
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: false, indent: 4 */
+/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * Copyright (c) 2011-2012, Scott van Looy, ThreeSquared.
  * All Rights Reserved.
@@ -25,11 +27,21 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-J$.reqNameSpace('J$.utils');
+FF.reqNameSpace('FF.utils');
 
 (function (utils) {
 	var HashMap = function () {
+<<<<<<< HEAD
 		var that = this, o = {}, len = 0, cloneret = {}, ksret = [], vret = [];
+=======
+		var that = this, 
+			o = {}, 
+			len = 0, 
+			cloneret = {}, 
+			ksret = [], 
+			vret = [];
+			
+>>>>>>> cb59eb3da9b822db1fb902c90a8bcd089f7f8b97
 		/** PRIVATE METHODS **/
 		var cempty = function () {
 			cloneret = {};
@@ -143,4 +155,4 @@ J$.reqNameSpace('J$.utils');
 		};
 	};
 	utils.HashMap = HashMap;
-}(J$.utils));
+}(FF.utils));

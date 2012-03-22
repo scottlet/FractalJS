@@ -1,9 +1,10 @@
 /*jslint evil:false, sloppy:false, undef:true, white:true, browser:true, plusplus:true */
 /*global ns:true, $:false, window:false, document:false */
-TestCase("testHashMap", {
+
+TestCase("Test the HashMap", {
 	testClear : function () {
 		expectAsserts(2);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
         	hash.put('me', 'myself');
         	assertEquals(hash.get('me'), "myself");
         	hash.clear();
@@ -11,7 +12,7 @@ TestCase("testHashMap", {
 	},
 	testClone : function () {
 		expectAsserts(2);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
 		hash.put('no', 'way');
 		var moo = hash.clone();
@@ -20,54 +21,56 @@ TestCase("testHashMap", {
 	},
 	testContainsKey: function () {
 		expectAsserts(2);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
 		assertTrue(hash.containsKey('me'));
 		assertFalse(hash.containsKey('you'));
 	},
 	testContainsValue: function () {
 		expectAsserts(2);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
 		assertTrue(hash.containsValue('myself'));
 		assertFalse(hash.containsValue('you'));
 	},
 	testEntrySet: function () {
 		expectAsserts(1);
-		var hash = new J$.utils.HashMap();
-		assertException(function(){hash.entrySet()});
+		var hash = new FF.utils.HashMap();
+		assertException(function () {
+			hash.entrySet();
+		});
 	},
 	testGet: function () {
 		expectAsserts(2);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
 		assertEquals(hash.get('me'), 'myself');
 		assertNotEquals(hash.get('me'), 'boo');
 	},
 	testIsEmpty: function () {
 		expectAsserts(2);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		assertTrue(hash.isEmpty());
 		hash.put('me', 'myself');
 		assertFalse(hash.isEmpty());
 	},
 	testKeySet: function () {
 		expectAsserts(1);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
 		hash.put('you', 'myself');
 		assertEquals(hash.keySet(), ['me','you']);
 	},
 	testPut: function () {
 		expectAsserts(2);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		assertEquals(hash.get('me'), undefined);
 		hash.put('me', 'myself');
 		assertEquals(hash.get('me'), 'myself');
 	},
 	testPutAll: function () {
 		expectAsserts(2);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.putAll({
 			me: 'myself', 
 			you: 'yourself'
@@ -77,7 +80,7 @@ TestCase("testHashMap", {
 	},
 	testRemove: function () {
 		expectAsserts(2);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
 		assertEquals(hash.get('me'), 'myself');
 		hash.remove('me');
@@ -85,7 +88,7 @@ TestCase("testHashMap", {
 	},
 	testSize: function () {
 		expectAsserts(1);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.putAll({
 			me: 'myself', 
 			you: 'yourself',
@@ -98,7 +101,7 @@ TestCase("testHashMap", {
 	},
 	testToString: function () {
 		expectAsserts(1);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.putAll({
 			me: 'myself', 
 			you: 'yourself',
@@ -108,7 +111,7 @@ TestCase("testHashMap", {
 	},
 	testValues: function () {
 		expectAsserts(1);
-		var hash = new J$.utils.HashMap();
+		var hash = new FF.utils.HashMap();
 		hash.putAll({
 			me: 'myself', 
 			you: 'yourself',

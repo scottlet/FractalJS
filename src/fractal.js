@@ -1,9 +1,11 @@
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: false, indent: 4 */
+/*globals FF:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
 /**
  * @author scottvanlooy
  */
-var J$ = (function() {
+var FF = (function () {
 	/** PRIVATE METHODS **/
-	var extend = function(item,inheritant){
+	var extend = function (item, inheritant) {
 		item.prototype = inheritant;
 		item.constructor = item;
 	};
@@ -15,54 +17,59 @@ var J$ = (function() {
 		 * @param {string} req - request in the format of 'my.name.space'
 		 * @param {Object} test
 		 */
-		reqNameSpace : function(req,test){
+		reqNameSpace : function (req, test) {
 			if (!req || typeof req !== "string" || !req.match('\\.')) {
-				ns.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
+				FF.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
 				return null;
 			}
-			var t = req.split('.')
-			, tns = window
-			,l = t.length;
+			var t = req.split('.'),
+				tns = window,
+				l = t.length;
 			for (var x = 0; x < l; x++) {
 				if (tns[t[x]]) {
 					tns = tns[t[x]];
 				}
 				else {
-					if(test){
+					if (test) {
 						return false;
 					}
 					tns = tns[t[x]] = {};
 				}
 			}
 		},
-		requires :  function(requires){
-			var l = requires.length;
-			for (var n = 0; n < l; n++) {
-				if (!this.reqNameSpace('ns.'+requires[n], true)) {
+		requires :  function (requires, namespace) {
+			var l = requires.length,
+				src;
+			if (typeof namespace[requires] === "undefined") {
+				for (var n = 0; n < l; n++) {
+					src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
+					document.write('<script type="text/javascript" src="' + src + '"></script>');
+					/*
 					var s = document.createElement('script');
 					s.src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
 					s.type = 'text/javascript';
 					document.head.appendChild(s);
+					*/
 				}
 			}
 		},
 		/**
 		 * baseUrl = the base URL for library scripts.
 		 */
-		baseUrl : (function(){
+		baseUrl : (function () {
 			var s = document.getElementsByTagName('script');
-			var m = s[s.length-1];
-			return m.src.replace(/[^\/]+?$/,'');
+			var m = s[s.length - 1];
+			return m.src.replace(/[^\/]+?$/, '');
 			
 		})(),
-		Console : (function(){
-			var nlog = function(type){
+		Console : (function () {
+			var nlog = function (type) {
 				if (!window.console) {
-					return function(){
+					return function () {
 						window.alert('type: ' + type + ' ' + arguments);
 					};
-				}else{
-					return function(){
+				} else {
+					return function () {
 						window.console[type](arguments);
 					};
 				}
@@ -71,20 +78,20 @@ var J$ = (function() {
 			var warn = new nlog('warn');
 			var error = new nlog('error');
 			return {
-				log:log,
-				warn:warn,
-				error:error
+				log: log,
+				warn: warn,
+				error: error
 			};
 	
 		})(),
-		createController : function(object){
-			return extend(object, J$.controllers.BaseController);
+		createController : function (object) {
+			return extend(object, FF.controllers.BaseController);
 		},
-		createView : function(object){
-			return extend(object, J$.views.BaseView);
+		createView : function (object) {
+			return extend(object, FF.views.BaseView);
 		},
-		createUI : function(object){
-			return extend(object, J$.uis.BaseUI);
+		createUI : function (object) {
+			return extend(object, FF.uis.BaseUI);
 		}
 	};
 })();
@@ -92,7 +99,7 @@ var J$ = (function() {
 /** Core library requires **/
 /** INCLUDES **/
 
-J$.requires(
+FF.requires(
 	[
 		// utils
 		'utils.Core',
@@ -110,5 +117,5 @@ J$.requires(
 		
 		// mixins - choose one, dependent on library used.
 		'mixins.jQuery'
-	]
+	], FF
 );

@@ -1,4 +1,4 @@
-TestCase("testCore", {
+TestCase("Test the core utils methods", {
 	testPut : function () {
 		expectAsserts(0);
 	},

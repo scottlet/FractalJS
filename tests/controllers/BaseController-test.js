@@ -1,19 +1,21 @@
-var foo = function(){
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+var Foo = function () {
+	"use strict";
 	this.myFunction = function () {
 		return 'my function';
 	};
 };
-TestCase("testBaseController", {
+
+TestCase("Test the BaseController object", {
 	testCreateController : function () {
+		"use strict";
 		expectAsserts(3);
 		assertNoException(function () {
-			J$.createController(foo);
-			foo = new foo();
+			FF.createController(Foo);
+			Foo = new Foo();
 		});
-		assertEquals(foo.myFunction(), 'my function');
-		assertFunction(foo.callView);
-	},
-	testClear : function () {
-		expectAsserts(0);
+		assertEquals(Foo.myFunction(), 'my function');
+		assertFunction(Foo.callView);
 	}
 });
