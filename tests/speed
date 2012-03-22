@@ -1,6 +1,6 @@
-ns.hashTest = function(){
+FF.hashTest = function(){
        (function(){
-              var moo = new ns.util.HashMap();
+              var moo = new FS.utils.HashMap();
               var circuits = 99999, start = new Date();
               while (circuits--) {
                      moo.put(parseInt(Math.random()*1000,10).toString(), Math.random());

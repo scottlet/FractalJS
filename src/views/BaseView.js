@@ -7,22 +7,21 @@
 
 FF.reqNameSpace('FF.views');
 (function (views) {
-	var BaseView = this;
+	var BaseView = {};
 	/** PRIVATE METHODS **/
 	var defaults = [];
 	
-	var loadComponents = function (ns, arr, view, defaults) {
+	var loadComponents = function (namespace, arr, view, addToDefaults) {
 		var l = arr.length;
 		while (l--) {
-			if (arr[l] && ns[arr[l]]) {
-				var ui = ns[arr[l]];
-				if (typeof ui === 'function') {
-					ui = new ui(view);
+			if (arr[l] && namespace[arr[l]]) {
+				if (typeof namespace[arr[l]] === 'function') {
+					namespace[arr[l]] = new namespace[arr[l]](view);
 				} else {
-					ui.setView(view);
+					namespace[arr[l]].setView(view);
 				}
-				if (defaults) {
-					defaults.push(ui);
+				if (addToDefaults) {
+					defaults.push(arr[l]);
 				}
 			}
 		}
@@ -38,9 +37,9 @@ FF.reqNameSpace('FF.views');
 		defaults = [];
 		loadComponents(ns, arr, null, true);
 	};
-	BaseView.requires = function (ns, arr, view) {
+	BaseView.requires = function (namespace, arr, view) {
 		var uiMap = FF.utils.ArrayUtils.combine(arr, defaults);
-		loadComponents(ns, arr, view);
+		loadComponents(namespace, uiMap, view);
 	};
 	views.BaseView = BaseView;
 }(FF.views));

@@ -8,7 +8,6 @@
  * create namespaces
  */
 var HelloNamespace = {};
-
 (function (ns) {
 	/** Create objects - for such a small page you'd probably not use a view/controller, but as your pages get more complex, it's a useful paradigm **/
 	
@@ -39,7 +38,7 @@ var HelloNamespace = {};
 		};
 		that.enter = function (runonce) {
 			that.requires(
-				ns, 
+				ns.uis, 
 				[
 					'HelloWorld'
 				],

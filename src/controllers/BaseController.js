@@ -2,20 +2,20 @@
 /*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * @author Scott van Looy
+ * @constructor
  */
-
 FF.reqNameSpace('FF.controllers');
 (function (controllers) {
-	var BaseController = this;
+	var BaseController = {};
 	/** Private methods **/
 	/** Public methods **/
-	BaseController.callView = function (ns, view) {
-		if (typeof ns[view] === "function") {
-			ns[view] = new ns[view]();
-			ns[view].controller = this;
-			this.view = ns[view];
+	BaseController.callView = function (namespace, view) {
+		if (typeof namespace[view] === "function") {
+			namespace[view] = new namespace[view]();
+			namespace[view].controller = this;
+			this.view = namespace[view];
 		}
-		return ns[view];
+		return namespace[view];
 	};
 	controllers.BaseController = BaseController;
 }(FF.controllers));

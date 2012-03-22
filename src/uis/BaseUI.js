@@ -7,7 +7,7 @@
 FF.reqNameSpace('FF.uis');
 (function (uis) {
 	/** PRIVATE METHODS **/
-	var BaseUI = this;
+	var BaseUI = {};
 
 	/** API METHODS **/
 	BaseUI.setRootDomNode = function (domNode) {
