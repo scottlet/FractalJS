@@ -29,7 +29,7 @@ J$.reqNameSpace('J$.utils');
 
 (function (utils) {
 	var HashMap = function () {
-				var that = this, o = {}, len = 0, cloneret = {}, ksret = [], vret = [];
+		var that = this, o = {}, len = 0, cloneret = {}, ksret = [], vret = [];
 		/** PRIVATE METHODS **/
 		var cempty = function () {
 			cloneret = {};
@@ -37,6 +37,7 @@ J$.reqNameSpace('J$.utils');
 			vret = [];
 		};
 		var clear = function () {
+			cempty(); 	
 			o = {};
 		};
 		var clone = function () {

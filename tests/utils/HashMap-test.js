@@ -1,12 +1,6 @@
 /*jslint evil:false, sloppy:false, undef:true, white:true, browser:true, plusplus:true */
 /*global ns:true, $:false, window:false, document:false */
 TestCase("testHashMap", {
-	testPut : function () {
-		expectAsserts(1);
-		var hash = new J$.utils.HashMap();
-        	hash.put('me', 'myself');
-        	assertEquals(hash.get('me'), "myself");
-	},
 	testClear : function () {
 		expectAsserts(2);
 		var hash = new J$.utils.HashMap();
