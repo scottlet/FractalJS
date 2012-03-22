@@ -1,6 +1,6 @@
 /*jslint evil:false, sloppy:false, undef:true, white:true, browser:true, plusplus:true */
 /*global ns:true, $:false, window:false, document:false */
-TestCase("testHashMap", {
+TestCase("Test the HashMap", {
 	testPut : function () {
 		expectAsserts(1);
 		var hash = new FF.utils.HashMap();

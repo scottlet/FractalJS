@@ -7,7 +7,7 @@ var Foo = function () {
 	};
 };
 
-TestCase("Test the base controller", {
+TestCase("Test the BaseController object", {
 	testCreateController : function () {
 		"use strict";
 		expectAsserts(3);
