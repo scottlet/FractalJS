@@ -8,8 +8,10 @@
 		"core/controllers/BaseController",
 		"core/views/BaseView",
 		"core/uis/BaseUI",
+		"extras",
 		"extras/mixins/jQuery",
-		"extras/utils/HashMap"
+		"extras/utils/HashMap",
+		"extras/utils/Console"
 	],
 	out:'../compiled/fractal.all.min.js'
 })

@@ -21,5 +21,6 @@ FF.reqNameSpace('FF.utils');
 			error: error
 		};
 
-	})()
+	})();
+	utils.Console = Console;
 }(FF.utils));
