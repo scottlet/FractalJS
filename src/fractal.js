@@ -19,7 +19,7 @@ var FF = (function () {
 		 */
 		reqNameSpace : function (req, test) {
 			if (!req || typeof req !== "string" || !req.match('\\.')) {
-				FF.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
+				FF.utils.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
 				return null;
 			}
 			var t = req.split('.'),
@@ -62,28 +62,6 @@ var FF = (function () {
 			return m.src.replace(/[^\/]+?$/, '');
 			
 		})(),
-		Console : (function () {
-			var nlog = function (type) {
-				if (!window.console) {
-					return function () {
-						window.alert('type: ' + type + ' ' + arguments);
-					};
-				} else {
-					return function () {
-						window.console[type](arguments);
-					};
-				}
-			};
-			var log = new nlog('log');
-			var warn = new nlog('warn');
-			var error = new nlog('error');
-			return {
-				log: log,
-				warn: warn,
-				error: error
-			};
-	
-		})(),
 		createController : function (object) {
 			return extend(object, FF.controllers.BaseController);
 		},
@@ -104,7 +82,6 @@ FF.requires(
 		// utils
 		'core.utils.Core',
 		'core.utils.ArrayUtils',
-		'extras.utils.HashMap',
 		
 		//Controllers
 		'core.controllers.BaseController',
@@ -113,9 +90,6 @@ FF.requires(
 		'core.views.BaseView',
 		
 		//uis
-		'core.uis.BaseUI',
-		
-		// mixins - choose one, dependent on library used.
-		'extras.mixins.jQuery'
+		'core.uis.BaseUI'
 	], FF
 );

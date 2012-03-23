@@ -6,3 +6,8 @@
  * @param {string} req - string representing the namespace requested, eg 'ns.util.foo'
  */
 FF.reqNameSpace('FF.utils');
+(function (utils) {
+	/** empty function, used as a stub **/
+	var empty = function () {};
+	utils.Console = empty;
+}(FF.utils));
