@@ -2,7 +2,7 @@
 /*global ns:true, $:false, window:false, document:false */
 
 TestCase("Test the HashMap", {
-	testClear : function () {
+	"test the clear method" : function () {
 		expectAsserts(2);
 		var hash = new FF.utils.HashMap();
         	hash.put('me', 'myself');
@@ -10,7 +10,7 @@ TestCase("Test the HashMap", {
         	hash.clear();
         	assertEquals(hash.get('me'), undefined);
 	},
-	testClone : function () {
+	"test the clone method" : function () {
 		expectAsserts(2);
 		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
@@ -19,35 +19,35 @@ TestCase("Test the HashMap", {
 		assertEquals(hash.get('me'), moo.get('me'));
 		assertEquals(hash.size(), moo.size());
 	},
-	testContainsKey: function () {
+	"test the containsKey method": function () {
 		expectAsserts(2);
 		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
 		assertTrue(hash.containsKey('me'));
 		assertFalse(hash.containsKey('you'));
 	},
-	testContainsValue: function () {
+	"test the containsValue method": function () {
 		expectAsserts(2);
 		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
 		assertTrue(hash.containsValue('myself'));
 		assertFalse(hash.containsValue('you'));
 	},
-	testEntrySet: function () {
+	"test the entrySet method": function () {
 		expectAsserts(1);
 		var hash = new FF.utils.HashMap();
 		assertException(function () {
 			hash.entrySet();
 		});
 	},
-	testGet: function () {
+	"test the get method": function () {
 		expectAsserts(2);
 		var hash = new FF.utils.HashMap();
 		hash.put('me', 'myself');
 		assertEquals(hash.get('me'), 'myself');
 		assertNotEquals(hash.get('me'), 'boo');
 	},
-	testIsEmpty: function () {
+	"test the isEmpty method": function () {
 		expectAsserts(2);
 		var hash = new FF.utils.HashMap();
 		assertTrue(hash.isEmpty());

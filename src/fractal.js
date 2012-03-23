@@ -102,20 +102,20 @@ var FF = (function () {
 FF.requires(
 	[
 		// utils
-		'utils.Core',
-		'utils.ArrayUtils',
-		'utils.HashMap',
+		'core.utils.Core',
+		'core.utils.ArrayUtils',
+		'extras.utils.HashMap',
 		
 		//Controllers
-		'controllers.BaseController',
+		'core.controllers.BaseController',
 		
 		// Views
-		'views.BaseView',
+		'core.views.BaseView',
 		
 		//uis
-		'uis.BaseUI',
+		'core.uis.BaseUI',
 		
 		// mixins - choose one, dependent on library used.
-		'mixins.jQuery'
+		'extras.mixins.jQuery'
 	], FF
 );
