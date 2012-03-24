@@ -27,7 +27,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-FF.reqNameSpace('FF.utils');
+FF.reqNameSpace('FF.extras.utils');
 
 (function (utils) {
 	var HashMap = function () {
@@ -150,4 +150,4 @@ FF.reqNameSpace('FF.utils');
 		};
 	};
 	utils.HashMap = HashMap;
-}(FF.utils));
+}(FF.extras.utils));

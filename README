@@ -49,7 +49,7 @@ Scott, 19 Sept 2011.
 CHANGELOG:
 23-Mar-12
 =========
-Added build tools. build-all/core/jquery requires node and builds the output into 
+Added build tools. build-all/core/jquery requires node.js and builds the output into 
 the compiled directory.
 Build core currently builds jquery core as the lib for now requires it. I shall 
 write code shortly that removes this dependency.

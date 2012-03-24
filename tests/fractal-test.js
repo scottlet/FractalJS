@@ -4,17 +4,22 @@ TestCase("Test the fractaljs methods", {
 	setUp: function () {
 		delete FF.namespace;
 	},
-	"test reqNameSpace" : function () {
+	"test reqNameSpace function to request a namespace" : function () {
 		expectAsserts(4);
 		assertUndefined(FF.namespace);
 		FF.reqNameSpace('FF.namespace');
 		assertObject(FF.namespace);
-		FF.reqNameSpace('FF.views');
-		assertObject(FF.views);
-		FF.reqNameSpace('FF.views.namespace');
-		assertObject(FF.views.namespace);
-	},
-	testClear : function () {
-		expectAsserts(0);
-	}
+		FF.reqNameSpace('FF.core.views');
+		assertObject(FF.core.views);
+		FF.reqNameSpace('FF.core.views.namespace');
+		assertObject(FF.core.views.namespace);
+	}/*,
+	"test requires function to request an additional module" : function () {
+		expectAsserts(2);
+		assertNoException(function () {
+			FF.baseUrl += '../test/';
+			FF.requires(['foo'], FF);
+		});
+		assertObject(FF.foo);
+	}*/
 });

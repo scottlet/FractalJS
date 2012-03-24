@@ -1,4 +1,4 @@
-FF.reqNameSpace('FF.utils');
+FF.reqNameSpace('FF.extras.utils');
 (function (utils) {
 	var Console = (function () {
 		var nlog = function (type) {
@@ -23,4 +23,5 @@ FF.reqNameSpace('FF.utils');
 
 	})();
 	utils.Console = Console;
-}(FF.utils));
+}(FF.extras.utils));
+FF.Console = FF.extras.utils.Console;

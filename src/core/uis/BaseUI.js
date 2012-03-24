@@ -4,7 +4,7 @@
 /**
  * @author Scott van Looy
  */
-FF.reqNameSpace('FF.uis');
+FF.reqNameSpace('FF.core.uis');
 (function (uis) {
 	/** PRIVATE METHODS **/
 	var BaseUI = {};
@@ -23,11 +23,14 @@ FF.reqNameSpace('FF.uis');
 		this.headerNode = this.domNode.find('.title');
 		this.templateNode = this.domNode.find('.template').remove();
 		this.footerNode = this.domNode.find('.footer');
+		if (!FF.mixins.UI) {
+			FF.requires(['core.mixins.Native']);
+		}
 		FF.mixins.UI(this);
 	};
 	BaseUI.setView = function (view) {
 		this.view = view;
 	};
 	uis.BaseUI = BaseUI;
-}(FF.uis));
+}(FF.core.uis));
 

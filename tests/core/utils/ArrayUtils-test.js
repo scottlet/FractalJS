@@ -5,7 +5,7 @@ TestCase("Test the ArrayUtils object", {
 		expectAsserts(1);
 		var Array1 = ['my', 'funky', 'array'];
 		var Array2 = ['my', 'awesome', 'array'];
-		var finalArray = FF.utils.ArrayUtils.combine(Array1, Array2);
+		var finalArray = FF.core.utils.ArrayUtils.combine(Array1, Array2);
 		assertEquals(finalArray, ['my', 'funky', 'array', 'awesome']);
 	}
 });

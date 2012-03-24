@@ -6,5 +6,4 @@ FF.requires(
 		
 		//Mixins
 		'extras.mixins.jQuery'
-	], FF
-);
+	]);

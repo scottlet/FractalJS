@@ -3,6 +3,7 @@
 	name: "fractal",
 	skipModuleInsertion: true,
 	include: [
+		"config",
 		"core/utils/Core",
 		"core/utils/ArrayUtils",
 		"core/controllers/BaseController",

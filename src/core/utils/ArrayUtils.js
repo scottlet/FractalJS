@@ -4,7 +4,7 @@
 /**
  * @author Scott van Looy
  */
-FF.reqNameSpace('FF.utils');
+FF.reqNameSpace('FF.core.utils');
 /**
  * takes two arrays of strings and combines them, removing duplicates
  * @param arr1 {Array} - first array to combine
@@ -31,4 +31,4 @@ FF.reqNameSpace('FF.utils');
 		return ret;
 	};
 	utils.ArrayUtils = ArrayUtils;
-}(FF.utils));
+}(FF.core.utils));

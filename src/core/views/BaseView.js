@@ -5,7 +5,7 @@
  * @author Scott van Looy
  */
 
-FF.reqNameSpace('FF.views');
+FF.reqNameSpace('FF.core.views');
 (function (views) {
 	var BaseView = {};
 	/** PRIVATE METHODS **/
@@ -38,8 +38,8 @@ FF.reqNameSpace('FF.views');
 		loadComponents(ns, arr, null, true);
 	};
 	BaseView.requires = function (namespace, arr, view) {
-		var uiMap = FF.utils.ArrayUtils.combine(arr, defaults);
+		var uiMap = FF.core.utils.ArrayUtils.combine(arr, defaults);
 		loadComponents(namespace, uiMap, view);
 	};
 	views.BaseView = BaseView;
-}(FF.views));
+}(FF.core.views));

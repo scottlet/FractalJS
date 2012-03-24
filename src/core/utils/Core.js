@@ -5,9 +5,9 @@
  * reqNameSpace - requests a namespace associated with the internal ns namespace
  * @param {string} req - string representing the namespace requested, eg 'ns.util.foo'
  */
-FF.reqNameSpace('FF.utils');
+FF.reqNameSpace('FF.core.utils');
 (function (utils) {
 	/** empty function, used as a stub **/
 	var empty = function () {};
 	utils.Console = empty;
-}(FF.utils));
+}(FF.core.utils));

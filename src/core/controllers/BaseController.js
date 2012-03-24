@@ -4,7 +4,7 @@
  * @author Scott van Looy
  * @constructor
  */
-FF.reqNameSpace('FF.controllers');
+FF.reqNameSpace('FF.core.controllers');
 (function (controllers) {
 	var BaseController = {};
 	/** Private methods **/
@@ -18,4 +18,4 @@ FF.reqNameSpace('FF.controllers');
 		return namespace[view];
 	};
 	controllers.BaseController = BaseController;
-}(FF.controllers));
+}(FF.core.controllers));
