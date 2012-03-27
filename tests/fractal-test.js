@@ -3,6 +3,16 @@
 TestCase("Test the fractaljs methods", {
 	setUp: function () {
 		delete FF.namespace;
+		delete FF.extras.Dummy;
+		Foo = function () {
+			"use strict";
+			this.myFunction = function () {
+				return 'my function';
+			};
+		};
+	},
+	tearDown: function () {
+		Foo = null;
 	},
 	"test reqNameSpace function to request a namespace" : function () {
 		expectAsserts(4);
@@ -13,13 +23,47 @@ TestCase("Test the fractaljs methods", {
 		assertObject(FF.core.views);
 		FF.reqNameSpace('FF.core.views.namespace');
 		assertObject(FF.core.views.namespace);
-	}/*,
+	},
 	"test requires function to request an additional module" : function () {
 		expectAsserts(2);
 		assertNoException(function () {
-			FF.baseUrl += '../test/';
-			FF.requires(['foo'], FF);
+			FF.requires(['extras.Dummy'], function () {
+				assertObject(FF.extras.Dummy);
+			});
 		});
-		assertObject(FF.foo);
-	}*/
+	},
+	"test CreateController method" : function () {
+		"use strict";
+		expectAsserts(4);
+		assertNoException(function () {
+			FF.createController(Foo);
+			Foo = new Foo();
+		});
+		assertFunction(Foo.myFunction);
+		assertEquals(Foo.myFunction(), 'my function');
+		assertFunction(Foo.callView);
+	},
+	"test CreateView method" : function () {
+		"use strict";
+		expectAsserts(4);
+		assertNoException(function () {
+			FF.createView(Foo);
+			Foo = new Foo();
+		});
+		assertFunction(Foo.myFunction);
+		assertEquals(Foo.myFunction(), 'my function');
+		assertFunction(Foo.requires);
+	},
+	"test CreateUI method" : function () {
+		"use strict";
+		expectAsserts(4);
+		assertNoException(function () {
+			FF.createUI(Foo);
+			Foo = new Foo();
+		});
+		assertFunction(Foo.myFunction);
+		assertEquals(Foo.myFunction(), 'my function');
+		assertFunction(Foo.setupUI);
+	}
+
 });

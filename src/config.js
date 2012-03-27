@@ -23,3 +23,4 @@ FF.requires(
 		'extras.utils.Console',
 		'extras.utils.HashMap'
 	]);
+FF.finished = true;

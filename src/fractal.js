@@ -3,7 +3,7 @@
 /**
  * @author scottvanlooy
  */
-var FF = {'hi':'there'};
+var FF = {};
 (function (namespace) {
 	/** PRIVATE METHODS **/
 	var extend = function (item, inheritant) {
@@ -54,15 +54,36 @@ var FF = {'hi':'there'};
 	 */
 	namespace.requires =  function (requires, callback) {
 		var l = requires.length,
-			src;
-		for (var n = 0; n < l; n++) {
+			src,
+			load = 0,
+			s,
+			n;
+		for (n = 0; n < l; n++) {
 			if (typeof namespace[requires[n]] === "undefined") {
 				src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
-				document.write('<script type="text/javascript" src="' + src + '"></script>');
+				if (namespace.finished) {
+					s = document.createElement('script');
+					s.type = 'text/javscript';
+					s.src = src;
+					document.getElementsByTagName('head')[0].appendChild(s);
+				} else {
+					document.write('<script type="text/javascript" src="' + src + '"></script>');
+					s = document.getElementsByTagName('script')[document.getElementsByTagName('script').length - 1];
+				}
+				load++;
 			}
 		}
-		if (callback) {
-			callback();
+		if (load) {
+			s.onload = function (){
+				if (callback) {
+					callback();
+				}
+				
+			}
+		} else {
+			if (callback) {
+				callback();
+			}
 		}
 	};
 	/**
@@ -106,7 +127,7 @@ var FF = {'hi':'there'};
 	namespace.mixins = {};
 	namespace.core = {};
 	namespace.extras = {};
-	namespace.noop = function(){};
-	namespace.Console = function(){};
+	namespace.NOOP = function(){};
+	namespace.Console = namespace.NOOP;
 	init();
 }(FF));
