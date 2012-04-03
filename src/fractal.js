@@ -5,14 +5,20 @@
  */
 var FF = {};
 (function (namespace) {
+	"use strict";
 	/** PRIVATE METHODS **/
 	var extend = function (item, inheritant) {
 		item.prototype = inheritant;
 		item.constructor = item;
 	};
 	var init = function () {
-		namespace.requires(['config']);
-	}
+		namespace.mixins = namespace.mixins || {};
+		namespace.core = namespace.core || {};
+		namespace.extras = namespace.extras || {};
+		namespace.NOOP = function(){};
+		namespace.Console = namespace.Console || namespace.NOOP;
+		namespace.requires('config');
+	};
 	/** API METHODS **/
 	
 	/**
@@ -57,30 +63,61 @@ var FF = {};
 			src,
 			load = 0,
 			s,
-			n;
+			n,
+			writeLoad = false,
+			async = false;
+		var ns = function (ns, str) {
+			var ret = ns;
+			var strArr = str.split('.');
+			for (var n = 0, l = strArr.length; n < l; n++) {
+				if (typeof ret !== "undefined") {
+					ret = ret[strArr[n]];
+				}
+			}
+			return ret;
+		};
+		var loadScript = function (src, cb, len) {
+			var s = document.createElement('script');
+			s.type = 'text/javascript';
+			s.src = src;
+			s.async = false;
+			s.onload = s.onreadystatechange =  function () {
+				var state = s.state;
+				if ((!state || /loaded|complete/.test(state))) {
+					load--;
+					if (!load && len === n) {
+						if (cb && !cb.called)  {
+							cb.call(this);
+							cb.called = true;
+						}
+					}
+				}
+			};
+			document.getElementsByTagName('head')[0].appendChild(s);
+		};
+		if (typeof requires === "string") {
+			requires = [requires];
+			l = requires.length;
+		}
 		for (n = 0; n < l; n++) {
-			if (typeof namespace[requires[n]] === "undefined") {
+			src = null;
+			jstestdriver.log(typeof ns(namespace, requires[n])+ ' '+ requires[n]+ ' '+namespace+' '+namespace.extras+ ' ' + namespace.extras.Dummy+ ' '+FF.extras.Dummy)
+			if (typeof ns(namespace, requires[n]) === "undefined") {
 				src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
 				if (namespace.finished) {
-					s = document.createElement('script');
-					s.type = 'text/javscript';
-					s.src = src;
-					document.getElementsByTagName('head')[0].appendChild(s);
+					writeLoad = false;
+					async = true;
+					load++;
+					loadScript(src, callback, load, requires.length);
 				} else {
-					document.write('<script type="text/javascript" src="' + src + '"></script>');
-					s = document.getElementsByTagName('script')[document.getElementsByTagName('script').length - 1];
+					writeLoad = true;
+					document.write('<script type="text/javascript" src="' + src + '"><\/script>');
 				}
-				load++;
+			} else {
+				jstestdriver.log('requires has '+ requires)
 			}
 		}
-		if (load) {
-			s.onload = function (){
-				if (callback) {
-					callback();
-				}
-				
-			}
-		} else {
+		if (writeLoad || !async) {
 			if (callback) {
 				callback();
 			}
@@ -124,10 +161,5 @@ var FF = {};
 	namespace.createUI = function (object) {
 		return extend(object, namespace.core.uis.BaseUI);
 	};
-	namespace.mixins = {};
-	namespace.core = {};
-	namespace.extras = {};
-	namespace.NOOP = function(){};
-	namespace.Console = namespace.NOOP;
 	init();
 }(FF));

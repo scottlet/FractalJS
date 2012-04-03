@@ -4,6 +4,7 @@
  * @author Scott van Looy
  * @constructor
  */
+console.log('FF.core.controllers loaded');
 FF.reqNameSpace('FF.core.controllers');
 (function (controllers) {
 	var BaseController = {};

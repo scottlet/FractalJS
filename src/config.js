@@ -1,3 +1,5 @@
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: false, indent: 4 */
+/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * This is the set of core components that the library requires to run. 
  * If using the automatic build tools, these will be included. If not,
@@ -19,8 +21,7 @@ FF.requires(
 		
 		//uis
 		'core.uis.BaseUI',
-		'extras.mixins.jQuery',
-		'extras.utils.Console',
-		'extras.utils.HashMap'
-	]);
-FF.finished = true;
+		'core.mixins.Native'
+	], function () {
+		FF.finished = true;
+	});

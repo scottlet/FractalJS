@@ -4,6 +4,7 @@
 /**
  * @author Scott van Looy
  */
+console.log('ArrayUtils loaded')
 FF.reqNameSpace('FF.core.utils');
 /**
  * takes two arrays of strings and combines them, removing duplicates

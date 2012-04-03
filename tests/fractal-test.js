@@ -1,5 +1,6 @@
 /*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, assertUndefined:false, assertObject:false*/
+var Foo;
 TestCase("Test the fractaljs methods", {
 	setUp: function () {
 		delete FF.namespace;
@@ -10,9 +11,19 @@ TestCase("Test the fractaljs methods", {
 				return 'my function';
 			};
 		};
+		FF.reqNameSpace('FF.extras');
+		(function () {
+			var Dummy = {
+				iExist : function () {
+					return 'iDo';
+				}
+			};
+			FF.extras.Dummy = Dummy;
+		}());
 	},
 	tearDown: function () {
 		Foo = null;
+		FF.extras.Dummy = null;
 	},
 	"test reqNameSpace function to request a namespace" : function () {
 		expectAsserts(4);
@@ -25,11 +36,13 @@ TestCase("Test the fractaljs methods", {
 		assertObject(FF.core.views.namespace);
 	},
 	"test requires function to request an additional module" : function () {
-		expectAsserts(2);
-		assertNoException(function () {
-			FF.requires(['extras.Dummy'], function () {
-				assertObject(FF.extras.Dummy);
-			});
+		expectAsserts(1);
+		FF.requires('extras.Dummy', function () {
+			assertObject(FF.extras.Dummy);
+		});
+		FF.requires('extras.Foo', function () {
+			// should never get here
+			assertObject(FF.extras.Dummy);
 		});
 	},
 	"test CreateController method" : function () {

@@ -41,7 +41,7 @@ FF.reqNameSpace('FF.extras.mixins');
 				object[i] = UIMIXINS[i];
 			}
 		}
-	}
+	};
 	mixins.jQuery = jQuery;
 }(FF.extras.mixins));
 FF.mixins.UI = FF.extras.mixins.jQuery;

@@ -3,16 +3,17 @@
 	name: "fractal",
 	skipModuleInsertion: true,
 	include: [
-		"config",
 		"core/utils/Core",
 		"core/utils/ArrayUtils",
 		"core/controllers/BaseController",
 		"core/views/BaseView",
 		"core/uis/BaseUI",
-		"extras",
+		"core/mixins/Native",
 		"extras/mixins/jQuery",
 		"extras/utils/HashMap",
-		"extras/utils/Console"
+		"extras/utils/Console",
+		"extras",
+		"config"
 	],
 	out:'../compiled/fractal.all.min.js'
 })
