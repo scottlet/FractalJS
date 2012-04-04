@@ -1,27 +1,33 @@
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false */
+/**
+ * @author scottvanlooy
+ */
 FF.reqNameSpace('FF.extras.utils');
 (function (utils) {
+	"use strict";
 	var Console = (function () {
-		var nlog = function (type) {
-			if (!window.console) {
-				return function () {
-					window.alert('type: ' + type + ' ' + arguments);
-				};
-			} else {
+		var Nlog,
+			log,
+			warn,
+			error;
+		Nlog = function (type) {
+			if (window.console) {
 				return function () {
 					window.console[type](arguments);
 				};
 			}
 		};
-		var log = new nlog('log');
-		var warn = new nlog('warn');
-		var error = new nlog('error');
+		log = new Nlog('log');
+		warn = new Nlog('warn');
+		error = new Nlog('error');
 		return {
 			log: log,
 			warn: warn,
 			error: error
 		};
 
-	})();
+	}());
 	utils.Console = Console;
 }(FF.extras.utils));
 FF.Console = FF.extras.utils.Console;

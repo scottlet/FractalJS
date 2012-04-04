@@ -6,6 +6,7 @@
  */
 FF.reqNameSpace('FF.core.uis');
 (function (uis) {
+	"use strict";
 	/** PRIVATE METHODS **/
 	var BaseUI = {};
 

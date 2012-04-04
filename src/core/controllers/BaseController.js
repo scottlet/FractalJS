@@ -4,9 +4,9 @@
  * @author Scott van Looy
  * @constructor
  */
-console.log('FF.core.controllers loaded');
 FF.reqNameSpace('FF.core.controllers');
 (function (controllers) {
+	"use strict";
 	var BaseController = {};
 	/** Private methods **/
 	/** Public methods **/
@@ -18,5 +18,11 @@ FF.reqNameSpace('FF.core.controllers');
 		}
 		return namespace[view];
 	};
+	/**
+	 * createController - takes an object and extends it with the BaseController
+	 * @param {Object} object to extend;
+	 * @return {Object} extended object
+	 */
+	BaseController.createController = FF.createController;
 	controllers.BaseController = BaseController;
 }(FF.core.controllers));

@@ -1,4 +1,4 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: false, indent: 4 */
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
 /*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 
 /**
@@ -7,26 +7,25 @@
 
 FF.reqNameSpace('FF.core.views');
 (function (views) {
-	var BaseView = {};
+	"use strict";
+	var BaseView = {},
 	/** PRIVATE METHODS **/
-	var defaults = [];
-	
-	var loadComponents = function (namespace, arr, view, addToDefaults) {
-		var l = arr.length;
-		while (l--) {
-			if (arr[l] && namespace[arr[l]]) {
-				if (typeof namespace[arr[l]] === 'function') {
-					namespace[arr[l]] = new namespace[arr[l]](view);
-				} else {
-					namespace[arr[l]].setView(view);
-				}
-				if (addToDefaults) {
-					defaults.push(arr[l]);
+		defaults = [],
+		loadComponents = function (namespace, arr, view, addToDefaults) {
+			var l = arr.length;
+			while (l--) {
+				if (arr[l] && namespace[arr[l]]) {
+					if (typeof namespace[arr[l]] === 'function') {
+						namespace[arr[l]] = new namespace[arr[l]](view);
+					} else {
+						namespace[arr[l]].setView(view);
+					}
+					if (addToDefaults) {
+						defaults.push(arr[l]);
+					}
 				}
 			}
-		}
-	};
-	
+		};
 	/** API METHODS **/
 	/**
 	 * 

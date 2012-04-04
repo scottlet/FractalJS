@@ -24,8 +24,6 @@ var HelloNamespace = {};
 		};
 		init();
 	};
-	FF.createController(ns.Controller);
-	
 	/**
 	 * View - controls the UIs in the front end.
 	 * @param {Object} controller
@@ -49,7 +47,6 @@ var HelloNamespace = {};
 		};
 		init();
 	};
-	FF.createView(ns.View);
 	ns.uis = {};
 	ns.uis.HelloWorld = function (view) {
 		var HelloWorld = this;
@@ -60,5 +57,7 @@ var HelloNamespace = {};
 		init();
 	};
 	FF.createUI(ns.uis.HelloWorld);
+	FF.createView(ns.View);
+	FF.createController(ns.Controller);
 	ns.Controller = new ns.Controller();
 }(HelloNamespace));

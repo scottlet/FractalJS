@@ -1,10 +1,9 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: false, indent: 4 */
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
 /*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 
 /**
  * @author Scott van Looy
  */
-console.log('ArrayUtils loaded')
 FF.reqNameSpace('FF.core.utils');
 /**
  * takes two arrays of strings and combines them, removing duplicates
@@ -13,18 +12,20 @@ FF.reqNameSpace('FF.core.utils');
  * @return ret {Array} - deduped unsorted array of strings
  */
 (function (utils) {
-	var ArrayUtils = this;
-/** API METHODS **/ 
+	"use strict";
+	var ArrayUtils = {};
+/** API METHODS **/
 	ArrayUtils.combine = function (arr1, arr2) {
 		var tarr = arr1.concat(arr2),
-			l = tarr.length, 
-			o = {}, 
+			l = tarr.length,
+			o = {},
 			ret = [],
-			n;
+			n,
+			name;
 		for (n = 0; n < l; n++) {
 			o[tarr[n]] = true;
 		}
-		for (var name in o) {
+		for (name in o) {
 			if (o.hasOwnProperty(name)) {
 				ret.push(name);
 			}

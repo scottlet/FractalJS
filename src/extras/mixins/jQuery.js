@@ -5,33 +5,38 @@
  */
 FF.reqNameSpace('FF.extras.mixins');
 (function (mixins) {
+	"use strict";
 	var jQuery = function (object) {
-		var OBJMIXINS = {
+		var OBJMIXINS,
+			UIMIXINS,
+			i,
+			that;
+		OBJMIXINS = {
 			open: function (callback) {
-				var that = that || this;
+				that = that || this;
 				that.domNode.fadeIn(function () {
 					return (callback) ? callback() : null;
 				});
 			},
 			close: function (callback) {
-				var that = that || this;
+				that = that || this;
 				that.domNode.fadeOut(function () {
 					that.domNode.hide();
 					return (callback) ? callback() : null;
 				});
 			},
 			on: function () {
-				var that = that || this;
+				that = that || this;
 				that.domNode.show();
 			},
 			off: function () {
-				var that = that || this;
+				that = that || this;
 				that.domNode.show();
 			}
 		};
-		var UIMIXINS = {
+		UIMIXINS = {
 		};
-		for (var i in OBJMIXINS) {
+		for (i in OBJMIXINS) {
 			if (OBJMIXINS.hasOwnProperty(i)) {
 				object[i] = OBJMIXINS[i];
 			}

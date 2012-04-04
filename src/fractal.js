@@ -1,4 +1,4 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: false, indent: 4 */
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4, vars: true, evil:true, regexp:true */
 /*globals FF:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
 /**
  * @author scottvanlooy
@@ -6,21 +6,21 @@
 var FF = {};
 (function (namespace) {
 	"use strict";
+	var
 	/** PRIVATE METHODS **/
-	var extend = function (item, inheritant) {
-		item.prototype = inheritant;
-		item.constructor = item;
-	};
-	var init = function () {
-		namespace.mixins = namespace.mixins || {};
-		namespace.core = namespace.core || {};
-		namespace.extras = namespace.extras || {};
-		namespace.NOOP = function(){};
-		namespace.Console = namespace.Console || namespace.NOOP;
-		namespace.requires('config');
-	};
+		extend = function (item, inheritant) {
+			item.prototype = inheritant;
+			item.constructor = item;
+		},
+		init = function () {
+			namespace.mixins = namespace.mixins || {};
+			namespace.core = namespace.core || {};
+			namespace.extras = namespace.extras || {};
+			namespace.NOOP = function () {};
+			namespace.Console = namespace.Console || namespace.NOOP;
+			namespace.requires('config');
+		};
 	/** API METHODS **/
-	
 	/**
 	 * reqNameSpace. Requests a namespace. If the namespace does not exist, it will 
 	 * be created
@@ -28,18 +28,25 @@ var FF = {};
 	 * @param {Object} test
 	 */
 	namespace.reqNameSpace = function (req, test) {
-		if (!req || typeof req !== "string" || !req.match('\\.')) {
+		var t,
+			x,
+			tns,
+			l;
+		if (!req || typeof req !== "string") {
 			namespace.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
 			return null;
 		}
-		var t = req.split('.'),
-			tns = window,
-			l = t.length;
-		for (var x = 0; x < l; x++) {
+		if (!req.match('\\.')) {
+			t = [req];
+		} else {
+			t = req.split('.');
+		}
+		tns = window;
+		l = t.length;
+		for (x = 0; x < l; x++) {
 			if (tns[t[x]]) {
 				tns = tns[t[x]];
-			}
-			else {
+			} else {
 				if (test) {
 					return false;
 				}
@@ -62,21 +69,24 @@ var FF = {};
 		var l = requires.length,
 			src,
 			load = 0,
-			s,
 			n,
 			writeLoad = false,
-			async = false;
-		var ns = function (ns, str) {
-			var ret = ns;
-			var strArr = str.split('.');
-			for (var n = 0, l = strArr.length; n < l; n++) {
+			async = false,
+			namespaceTest,
+			loadScript;
+		namespaceTest = function (namespace, test) {
+			var ret = namespace,
+				strArr = test.split('.'),
+				l = strArr.length,
+				p;
+			for (p = 0; p < l; p++) {
 				if (typeof ret !== "undefined") {
-					ret = ret[strArr[n]];
+					ret = ret[strArr[p]];
 				}
 			}
 			return ret;
 		};
-		var loadScript = function (src, cb, len) {
+		loadScript = function (src, cb, len) {
 			var s = document.createElement('script');
 			s.type = 'text/javascript';
 			s.src = src;
@@ -86,7 +96,7 @@ var FF = {};
 				if ((!state || /loaded|complete/.test(state))) {
 					load--;
 					if (!load && len === n) {
-						if (cb && !cb.called)  {
+						if (cb && !cb.called) {
 							cb.call(this);
 							cb.called = true;
 						}
@@ -101,8 +111,7 @@ var FF = {};
 		}
 		for (n = 0; n < l; n++) {
 			src = null;
-			jstestdriver.log(typeof ns(namespace, requires[n])+ ' '+ requires[n]+ ' '+namespace+' '+namespace.extras+ ' ' + namespace.extras.Dummy+ ' '+FF.extras.Dummy)
-			if (typeof ns(namespace, requires[n]) === "undefined") {
+			if (typeof namespaceTest(namespace, requires[n]) === "undefined") {
 				src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
 				if (namespace.finished) {
 					writeLoad = false;
@@ -113,8 +122,6 @@ var FF = {};
 					writeLoad = true;
 					document.write('<script type="text/javascript" src="' + src + '"><\/script>');
 				}
-			} else {
-				jstestdriver.log('requires has '+ requires)
 			}
 		}
 		if (writeLoad || !async) {
@@ -132,8 +139,7 @@ var FF = {};
 		var s = document.getElementsByTagName('script');
 		var m = s[s.length - 1];
 		return m.src.replace(/[^\/]+?$/, '');
-		
-	})();
+	}());
 
 	/**
 	 * createController - takes an object and extends it with the BaseController
@@ -143,7 +149,6 @@ var FF = {};
 	namespace.createController = function (object) {
 		return extend(object, namespace.core.controllers.BaseController);
 	};
-	
 	/**
 	 * createView - takes an object and extends it with the BaseView
 	 * @param {Object} object to extend;
@@ -152,7 +157,6 @@ var FF = {};
 	namespace.createView = function (object) {
 		return extend(object, namespace.core.views.BaseView);
 	};
-	
 	/**
 	 * createUI - takes an object and extends it with the BaseUI
 	 * @param {Object} object to extend;

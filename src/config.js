@@ -1,4 +1,4 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: false, indent: 4 */
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
 /*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * This is the set of core components that the library requires to run. 
@@ -9,19 +9,19 @@
  */
 FF.requires(
 	[
-		// utils
+	// utils
 		'core.utils.Core',
 		'core.utils.ArrayUtils',
-		
-		//Controllers
+	//Controllers
 		'core.controllers.BaseController',
-		
-		// Views
+	// Views
 		'core.views.BaseView',
-		
-		//uis
+	//uis
 		'core.uis.BaseUI',
 		'core.mixins.Native'
-	], function () {
+	],
+	function () {
+		"use strict";
 		FF.finished = true;
-	});
+	}
+);
