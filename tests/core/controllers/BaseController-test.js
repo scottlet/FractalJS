@@ -4,9 +4,9 @@ TestCase("Test the BaseController object", {
 	setUp : function () {
 		FF.reqNameSpace('test');
 		test.TestController = function () {
-			return {
-				getExampleText : "example text"
-			};
+			this.getExampleText = function () {
+				return "example text";
+			}
 		};
 		test.TestView = function () {
 			return {
