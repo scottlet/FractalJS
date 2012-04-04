@@ -47,6 +47,14 @@ samples in the examples directory :)
 Scott, 19 Sept 2011.
 
 CHANGELOG:
+04-Apr-12
+=========
+Moved some API calls around for the final time.
+Wrote tests for BaseController.
+Tidied up loading of external files.
+Modified build tools.
+Created different testrunners, to test the minified output as well.
+
 23-Mar-12
 =========
 Added build tools. build-all/core/jquery requires node.js and builds the output into 

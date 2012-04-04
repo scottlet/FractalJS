@@ -40,5 +40,6 @@ FF.reqNameSpace('FF.core.views');
 		var uiMap = FF.core.utils.ArrayUtils.combine(arr, defaults);
 		loadComponents(namespace, uiMap, view);
 	};
+	BaseView.createView = FF.createView;
 	views.BaseView = BaseView;
 }(FF.core.views));

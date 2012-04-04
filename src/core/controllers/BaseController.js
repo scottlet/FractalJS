@@ -11,6 +11,7 @@ FF.reqNameSpace('FF.core.controllers');
 	/** Private methods **/
 	/** Public methods **/
 	BaseController.callView = function (namespace, view) {
+		var ret;
 		if (typeof namespace[view] === "function") {
 			namespace[view] = new namespace[view]();
 			namespace[view].controller = this;

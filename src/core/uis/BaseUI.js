@@ -36,6 +36,7 @@ FF.reqNameSpace('FF.core.uis');
 	BaseUI.setView = function (view) {
 		this.view = view;
 	};
+	BaseUI.createUI = FF.createUI;
 	uis.BaseUI = BaseUI;
 }(FF.core.uis));
 

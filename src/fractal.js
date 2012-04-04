@@ -147,7 +147,6 @@ var FF = {};
 	 * @return {Object} extended object
 	 */
 	namespace.createController = function (object) {
-		console.log(object, namespace.core.controllers.BaseController)
 		return extend(object, namespace.core.controllers.BaseController);
 	};
 	/**
