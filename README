@@ -47,6 +47,14 @@ samples in the examples directory :)
 Scott, 19 Sept 2011.
 
 CHANGELOG:
+05-Apr-12
+=========
+Added Function.prototype.partial, used John Resig's as a base and extended it to deal with multiple arguments.
+http://ejohn.org/blog/partial-functions-in-javascript/
+Added tests for BaseView and partial
+Moved API methods createView/createController/createUI onto their base objects
+Updated HelloWorld to work correctly
+
 04-Apr-12
 =========
 Moved some API calls around for the final time.
