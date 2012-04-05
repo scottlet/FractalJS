@@ -8,11 +8,29 @@ var FF = {};
 	"use strict";
 	var
 	/** PRIVATE METHODS **/
-		extend = function (item, inheritant) {
-			item.prototype = inheritant;
-			item.constructor = item;
-		},
 		init = function () {
+			Function.prototype.partial = Function.prototype.partial || function () {
+				var fn = this, args = Array.prototype.slice.call(arguments);
+				return function () {
+					var myArgs = Array.prototype.slice.call(arguments);
+					var arg = 0, 
+						i,
+						n=0,
+						l = args.length,
+						ll = myArgs.length;
+					for (i = 0; i < l; i++) {
+						if (typeof args[i] === "undefined") {
+							args.splice(i,1)
+							while (ll--) {
+								n++;
+								args.splice(i,0,myArgs[ll]);
+							}
+						}
+					}
+					return fn.apply(this, args);
+					
+				};
+			};
 			namespace.mixins = namespace.mixins || {};
 			namespace.core = namespace.core || {};
 			namespace.extras = namespace.extras || {};
@@ -140,30 +158,12 @@ var FF = {};
 		var m = s[s.length - 1];
 		return m.src.replace(/[^\/]+?$/, '');
 	}());
-
-	/**
-	 * createController - takes an object and extends it with the BaseController
-	 * @param {Object} object to extend;
-	 * @return {Object} extended object
-	 */
-	namespace.createController = function (object) {
-		return extend(object, namespace.core.controllers.BaseController);
-	};
-	/**
-	 * createView - takes an object and extends it with the BaseView
-	 * @param {Object} object to extend;
-	 * @return {Object} extended object
-	 */
-	namespace.createView = function (object) {
-		return extend(object, namespace.core.views.BaseView);
-	};
-	/**
-	 * createUI - takes an object and extends it with the BaseUI
-	 * @param {Object} object to extend;
-	 * @return {Object} extended object
-	 */
-	namespace.createUI = function (object) {
-		return extend(object, namespace.core.uis.BaseUI);
+	namespace.augmentObject = function (object) {
+		object.extend = object.extend || function (item, inheritant) {
+			item.prototype = inheritant;
+			item.constructor = item;
+		};
+		return object;
 	};
 	init();
 }(FF));

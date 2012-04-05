@@ -8,7 +8,7 @@
 FF.reqNameSpace('FF.core.views');
 (function (views) {
 	"use strict";
-	var BaseView = {},
+	var BaseView = FF.augmentObject({}),
 	/** PRIVATE METHODS **/
 		defaults = [],
 		loadComponents = function (namespace, arr, view, addToDefaults) {
@@ -40,6 +40,13 @@ FF.reqNameSpace('FF.core.views');
 		var uiMap = FF.core.utils.ArrayUtils.combine(arr, defaults);
 		loadComponents(namespace, uiMap, view);
 	};
-	BaseView.createView = FF.createView;
+	/**
+	 * createView - takes an object and extends it with the BaseView
+	 * @param {Object} object to extend;
+	 * @return {Object} extended object
+	 */
+	BaseView.createView = function (object) {
+		return BaseView.extend(object, BaseView);
+	};
 	views.BaseView = BaseView;
 }(FF.core.views));

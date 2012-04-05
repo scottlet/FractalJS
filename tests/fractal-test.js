@@ -25,6 +25,22 @@ TestCase("Test the fractaljs methods", {
 		Foo = null;
 		FF.extras.Dummy = null;
 	},
+	"test Function.prototype.partial method" : function () {
+		expectAsserts(3);
+		var displayText = function () {
+			var ret = [], l = arguments.length, n = 0;
+			while (n < l) {
+				ret.push(arguments[n]);
+				n = n + 1;
+			}
+			return ret.join('');
+		};
+		assertEquals("I think I might go out", displayText('I ', 'think ', 'I ', 'might ', 'go ', 'out'));
+		var simonSays = displayText.partial('Simon says, "', undefined, '".');
+		assertEquals("Simon says, \"I think I might go out\".", simonSays('I ', 'think ', 'I ', 'might ', 'go ', 'out'));
+		simonSays = displayText.partial('"', undefined, '", Simon says.');
+		assertEquals("\"I think I might go out\", Simon says.", simonSays('I ', 'think ', 'I ', 'might ', 'go ', 'out'));
+	},
 	"test reqNameSpace function to request a namespace" : function () {
 		expectAsserts(4);
 		assertUndefined(FF.namespace);
@@ -45,38 +61,9 @@ TestCase("Test the fractaljs methods", {
 			assertObject(FF.extras.Dummy);
 		});
 	},
-	"test CreateController method" : function () {
-		"use strict";
-		expectAsserts(4);
-		assertNoException(function () {
-			FF.createController(Foo);
-			Foo = new Foo();
-		});
-		assertFunction(Foo.myFunction);
-		assertEquals(Foo.myFunction(), 'my function');
-		assertFunction(Foo.callView);
-	},
-	"test CreateView method" : function () {
-		"use strict";
-		expectAsserts(4);
-		assertNoException(function () {
-			FF.createView(Foo);
-			Foo = new Foo();
-		});
-		assertFunction(Foo.myFunction);
-		assertEquals(Foo.myFunction(), 'my function');
-		assertFunction(Foo.requires);
-	},
-	"test CreateUI method" : function () {
-		"use strict";
-		expectAsserts(4);
-		assertNoException(function () {
-			FF.createUI(Foo);
-			Foo = new Foo();
-		});
-		assertFunction(Foo.myFunction);
-		assertEquals(Foo.myFunction(), 'my function');
-		assertFunction(Foo.setupUI);
+	"test augmentObject function to add items to an object" : function () {
+		expectAsserts(1);
+		var o = FF.augmentObject({});
+		assertFunction(o.extend);
 	}
-
 });

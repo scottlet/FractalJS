@@ -8,7 +8,7 @@ FF.reqNameSpace('FF.core.uis');
 (function (uis) {
 	"use strict";
 	/** PRIVATE METHODS **/
-	var BaseUI = {};
+	var BaseUI = FF.augmentObject({});
 
 	/** API METHODS **/
 	BaseUI.setRootDomNode = function (domNode) {
@@ -36,7 +36,14 @@ FF.reqNameSpace('FF.core.uis');
 	BaseUI.setView = function (view) {
 		this.view = view;
 	};
-	BaseUI.createUI = FF.createUI;
+	/**
+	 * createUI - takes an object and extends it with the BaseUI
+	 * @param {Object} object to extend;
+	 * @return {Object} extended object
+	 */
+	BaseUI.createUI = function (object) {
+		return BaseUI.extend(object, BaseUI);
+	};
 	uis.BaseUI = BaseUI;
 }(FF.core.uis));
 
