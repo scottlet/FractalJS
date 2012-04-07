@@ -103,7 +103,7 @@ var FF = {};
 				l = strArr.length,
 				p;
 			// Find starting point. Either our own namespace or the window. If neither, return false.
-			if (!ret[strArr[0]] || !window[strArr[0]]) {
+			if (!ret[strArr[0]] && !window[strArr[0]]) {
 				return undefined;
 			}
 			// If starting point is the window, set window to the return value.
@@ -128,7 +128,6 @@ var FF = {};
 					load--;
 					if (!load && len === n) {
 						if (cb && !cb.called) {
-							alert('called')
 							cb.call(this);
 							cb.called = true;
 						}
@@ -152,6 +151,9 @@ var FF = {};
 					docallback = true;
 					document.write('<script type="text/javascript" src="' + src + '"><\/script>');
 				}
+			} else {
+				// We already have this item. Run callback.
+				docallback = true;
 			}
 		}
 		if (docallback) {
