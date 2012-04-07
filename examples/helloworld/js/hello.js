@@ -1,5 +1,6 @@
 /*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*jshint plusplus: false, smarttabs:true */
+/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, jQuery:false, window:false*/
 /**
  * @author scottvanlooy
  */
@@ -9,16 +10,20 @@
  */
 var HelloNamespace = {};
 (function (ns) {
-	/** Create objects - for such a small page you'd probably not use a view/controller, but as your pages get more complex, it's a useful paradigm **/
-	
+	"use strict";
 	/**
-	 * Controller - controls data in and out of the front end.
+	 * Create objects - for such a small page you'd probably not use a
+	 * view/controller, but as your pages get more complex, it's a useful paradigm
+	**/
+	/**
+	 * Controls data in and out of the front end.
+	 * @constructor
 	 */
 	ns.Controller = function () {
-		var that = this;
-		var init = function () {
-			that.enter(true);
-		};
+		var that = this,
+			init = function () {
+				that.enter(true);
+			};
 		that.enter = function (runonce) {
 			that.callView(ns, 'View');
 		};
@@ -29,18 +34,19 @@ var HelloNamespace = {};
 	 * @param {Object} controller
 	 */
 	ns.View = function (controller) {
-		var that = this;
+		var that = this,
+			init = function () {
+				that.enter(true);
+			};
 		that.controller = controller;
-		var init = function () {
-			that.enter(true);
-		};
 		that.enter = function (runonce) {
 			that.requires(
-				ns.uis, 
+				ns.uis,
 				[
 					'HelloWorld'
 				],
-				that);
+				that
+			);
 			/** if (runonce) {
 				// Things you only need to run once.
 			} **/
@@ -49,11 +55,11 @@ var HelloNamespace = {};
 	};
 	ns.uis = {};
 	ns.uis.HelloWorld = function (view) {
-		var HelloWorld = this;
+		var HelloWorld = this,
+			init = function () {
+				HelloWorld.setupUI('HelloWorld');
+			};
 		HelloWorld.view = view;
-		var init = function () {
-			HelloWorld.setupUI('HelloWorld');
-		};
 		init();
 	};
 	FF.core.uis.BaseUI.createUI(ns.uis.HelloWorld);

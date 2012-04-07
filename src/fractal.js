@@ -1,34 +1,41 @@
 /*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4, vars: true, evil:true, regexp:true */
+/*jshint plusplus: false, smarttabs:true, regexp:false */
 /*globals FF:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
 /**
  * @author scottvanlooy
+ */
+/**
+ * @namespace contains the library.
  */
 var FF = {};
 (function (namespace) {
 	"use strict";
 	var
 	/** PRIVATE METHODS **/
+		/**
+		 * initialise the object
+		 * @private
+		 */
 		init = function () {
 			Function.prototype.partial = Function.prototype.partial || function () {
 				var fn = this, args = Array.prototype.slice.call(arguments);
 				return function () {
 					var myArgs = Array.prototype.slice.call(arguments);
-					var arg = 0, 
+					var arg = 0,
 						i,
-						n=0,
+						n = 0,
 						l = args.length,
 						ll = myArgs.length;
 					for (i = 0; i < l; i++) {
 						if (typeof args[i] === "undefined") {
-							args.splice(i,1)
+							args.splice(i, 1);
 							while (ll--) {
 								n++;
-								args.splice(i,0,myArgs[ll]);
+								args.splice(i, 0, myArgs[ll]);
 							}
 						}
 					}
 					return fn.apply(this, args);
-					
 				};
 			};
 			namespace.mixins = namespace.mixins || {};
@@ -40,7 +47,7 @@ var FF = {};
 		};
 	/** API METHODS **/
 	/**
-	 * reqNameSpace. Requests a namespace. If the namespace does not exist, it will 
+	 * reqNameSpace. Requests a namespace. If the namespace does not exist, it will
 	 * be created
 	 * @param {string} req - request in the format of 'my.name.space'
 	 * @param {Object} test
@@ -78,10 +85,9 @@ var FF = {};
 	 * the module.
 	 * @param {Array} requires - array of strings representing a component's path.
 	 * 'myapp/main/Hello.js' would be written as 'myapp.main.Hello' and Hello.js
-	 * would contains an object at the same namespace 
+	 * would contains an object at the same namespace
 	 * (myapp.main.Hello = (function(){}()))
 	 * @param {function=} callback. Optional callback to run when loading is complete.
-	 * @author Scott van Looy
 	 */
 	namespace.requires =  function (requires, callback) {
 		var l = requires.length,
@@ -149,7 +155,7 @@ var FF = {};
 		}
 	};
 	/**
-	 * baseUrl = the base URL for library scripts - determined by the location of 
+	 * The base URL for library scripts - determined by the location of
 	 * fractal.min?.js
 	 * @return {string}
 	 */
@@ -158,6 +164,11 @@ var FF = {};
 		var m = s[s.length - 1];
 		return m.src.replace(/[^\/]+?$/, '');
 	}());
+	/**
+	 * Augment the object, adding a few shared methods to it.
+	 * @param  {object} object the object to be augmented
+	 * @return {object} the augmented object.
+	 */
 	namespace.augmentObject = function (object) {
 		object.extend = object.extend || function (item, inheritant) {
 			item.prototype = inheritant;
