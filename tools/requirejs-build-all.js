@@ -9,6 +9,7 @@
 		"core/views/BaseView",
 		"core/uis/BaseUI",
 		"core/mixins/Native",
+		"core/Events",
 		"extras/mixins/jQuery",
 		"extras/utils/HashMap",
 		"extras/utils/Console",

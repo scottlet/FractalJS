@@ -9,6 +9,7 @@
 		"core/views/BaseView",
 		"core/uis/BaseUI",
 		"core/mixins/Native",
+		"core/Events",
 		"config"
 	],
 	out:'../compiled/fractal.core.min.js'

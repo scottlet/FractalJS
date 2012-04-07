@@ -19,7 +19,9 @@ FF.requires(
 		'core.views.BaseView',
 	//uis
 		'core.uis.BaseUI',
-		'core.mixins.Native'
+		'core.mixins.Native',
+	//events
+		'core.Events'
 	],
 	function () {
 		"use strict";

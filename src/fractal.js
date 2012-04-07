@@ -8,7 +8,7 @@
  * @namespace contains the library.
  */
 var FF = {};
-(function (namespace) {
+(function (ff) {
 	"use strict";
 	var
 	/** PRIVATE METHODS **/
@@ -38,12 +38,12 @@ var FF = {};
 					return fn.apply(this, args);
 				};
 			};
-			namespace.mixins = namespace.mixins || {};
-			namespace.core = namespace.core || {};
-			namespace.extras = namespace.extras || {};
-			namespace.NOOP = function () {};
-			namespace.Console = namespace.Console || namespace.NOOP;
-			namespace.requires('config');
+			ff.mixins = ff.mixins || {};
+			ff.core = ff.core || {};
+			ff.extras = ff.extras || {};
+			ff.NOOP = function () {};
+			ff.Console = ff.Console || ff.NOOP;
+			ff.requires('config');
 		};
 	/** API METHODS **/
 	/**
@@ -52,13 +52,13 @@ var FF = {};
 	 * @param {string} req - request in the format of 'my.name.space'
 	 * @param {Object} test
 	 */
-	namespace.reqNameSpace = function (req, test) {
+	ff.reqNameSpace = function (req, test) {
 		var t,
 			x,
 			tns,
 			l;
 		if (!req || typeof req !== "string") {
-			namespace.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
+			ff.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
 			return null;
 		}
 		if (!req.match('\\.')) {
@@ -89,13 +89,12 @@ var FF = {};
 	 * (myapp.main.Hello = (function(){}()))
 	 * @param {function=} callback. Optional callback to run when loading is complete.
 	 */
-	namespace.requires =  function (requires, callback) {
+	ff.requires =  function (requires, callback) {
 		var l = requires.length,
 			src,
 			load = 0,
 			n,
-			writeLoad = false,
-			async = false,
+			docallback = false,
 			namespaceTest,
 			loadScript;
 		namespaceTest = function (namespace, test) {
@@ -103,6 +102,14 @@ var FF = {};
 				strArr = test.split('.'),
 				l = strArr.length,
 				p;
+			// Find starting point. Either our own namespace or the window. If neither, return false.
+			if (!ret[strArr[0]] || !window[strArr[0]]) {
+				return undefined;
+			}
+			// If starting point is the window, set window to the return value.
+			if (!ret[strArr[0]] && window[strArr[0]]) {
+				ret = window;
+			}
 			for (p = 0; p < l; p++) {
 				if (typeof ret !== "undefined") {
 					ret = ret[strArr[p]];
@@ -121,6 +128,7 @@ var FF = {};
 					load--;
 					if (!load && len === n) {
 						if (cb && !cb.called) {
+							alert('called')
 							cb.call(this);
 							cb.called = true;
 						}
@@ -134,21 +142,19 @@ var FF = {};
 			l = requires.length;
 		}
 		for (n = 0; n < l; n++) {
+			docallback = false;
 			src = null;
-			if (typeof namespaceTest(namespace, requires[n]) === "undefined") {
+			if (typeof namespaceTest(ff, requires[n]) === "undefined") {
 				src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
-				if (namespace.finished) {
-					writeLoad = false;
-					async = true;
-					load++;
+				if (ff.finished) {
 					loadScript(src, callback, load, requires.length);
 				} else {
-					writeLoad = true;
+					docallback = true;
 					document.write('<script type="text/javascript" src="' + src + '"><\/script>');
 				}
 			}
 		}
-		if (writeLoad || !async) {
+		if (docallback) {
 			if (callback) {
 				callback();
 			}
@@ -159,7 +165,7 @@ var FF = {};
 	 * fractal.min?.js
 	 * @return {string}
 	 */
-	namespace.baseUrl = (function () {
+	ff.baseUrl = (function () {
 		var s = document.getElementsByTagName('script');
 		var m = s[s.length - 1];
 		return m.src.replace(/[^\/]+?$/, '');
@@ -169,7 +175,7 @@ var FF = {};
 	 * @param  {object} object the object to be augmented
 	 * @return {object} the augmented object.
 	 */
-	namespace.augmentObject = function (object) {
+	ff.augmentObject = function (object) {
 		object.extend = object.extend || function (item, inheritant) {
 			item.prototype = inheritant;
 			item.constructor = item;
