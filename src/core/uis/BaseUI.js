@@ -42,8 +42,8 @@ FF.reqNameSpace('FF.core.uis');
 	 * @param {Object} object to extend;
 	 * @return {Object} extended object
 	 */
-	BaseUI.createUI = function (object) {
-		return BaseUI.extend(object, BaseUI);
+	BaseUI.createUI = function (obj) {
+		BaseUI.extend(obj, BaseUI);
 	};
 	uis.BaseUI = BaseUI;
 }(FF.core.uis));

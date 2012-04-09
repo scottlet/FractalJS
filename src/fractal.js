@@ -178,10 +178,26 @@ var FF = {};
 	 * @return {object} the augmented object.
 	 */
 	ff.augmentObject = function (object) {
-		object.extend = object.extend || function (item, inheritant) {
-			item.prototype = inheritant;
-			item.constructor = item;
-		};
+		if (!object.augmented) {
+			/**
+			 * extend an object with another object.
+			 *
+			 * @param  {function} item       child function
+			 * @param  {function|object} Inheritant parent function/object
+			 *
+			 * @return {[type]}            [description]
+			 */
+			object.extend = object.extend || function (Child, Parent) {
+				if (typeof Parent === "function") {
+					Child.prototype = new Parent();
+					Child.constructor = Child;
+				} else {
+					Child.prototype = Parent;
+					Child.constructor = Child;
+				}
+			};
+			object.augmented = true;
+		}
 		return object;
 	};
 	init();

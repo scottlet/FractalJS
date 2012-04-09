@@ -65,5 +65,21 @@ TestCase("Test the fractaljs methods", {
 		expectAsserts(1);
 		var o = FF.augmentObject({});
 		assertFunction(o.extend);
+	},
+	"test extend function to extend a function with another function" : function () {
+		expectAsserts(3);
+		var obj1 = function () {
+			this.method1 = 'method1';
+		},
+		obj2 = function () {
+			this.method2 = 'method2';
+		},
+		o = FF.augmentObject({});
+		assertNoException(function () {
+			o.extend(obj1, obj2);
+		});
+		obj1 = new obj1();
+		assertEquals('method1', obj1.method1);
+		assertEquals('method2', obj1.method2);
 	}
 });

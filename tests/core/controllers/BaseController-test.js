@@ -28,10 +28,8 @@ TestCase("Test the BaseController object", {
 		test.TestController = null;
 		test.TestView = null;
 	},
-	testCreation : function () {
+	"test creation of controller using createController" : function () {
 		expectAsserts(4);
-		
-		
 		assertNoException(function () {
 			FF.core.controllers.BaseController.createController(test.TestController);
 		});

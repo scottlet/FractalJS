@@ -1,5 +1,6 @@
 /*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, test:false, assertObject:false*/
+/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, assertObject:false*/
+var test = {};
 TestCase("Test the BaseView object", {
 	setUp : function () {
 		FF.reqNameSpace('test');

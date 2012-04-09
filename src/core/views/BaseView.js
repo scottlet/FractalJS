@@ -66,16 +66,18 @@ FF.reqNameSpace('FF.core.views');
 	 * @param {Object} object to extend;
 	 * @return {Object} extended object
 	 */
-	BaseView.createView = function (object) {
-		return BaseView.extend(object, BaseView);
+	BaseView.createView = function (obj) {
+		BaseView.extend(obj, BaseView);
 	};
+	//BaseView.createView = BaseView.extend.partial(undefined, BaseView);
+	//BaseView.extend.partial(undefined, BaseView);
 	/**
 	 * This is where you can find an object representing your UIs once you've called requires
 	 * @type {[type]}
 	 */
 	BaseView.uis = null;
 	/**
-	 * This is a reference to the controller that 
+	 * This is a reference to the controller that
 	 * @type {[type]}
 	 */
 	BaseView.controller = null;
