@@ -25,7 +25,7 @@ TestCase("Test the fractaljs methods", {
 		Foo = null;
 		FF.extras.Dummy = null;
 	},
-	"test Function.prototype.partial method" : function () {
+	"test Function.prototype.curry method" : function () {
 		expectAsserts(3);
 		var displayText = function () {
 			var ret = [], l = arguments.length, n = 0;
@@ -36,9 +36,9 @@ TestCase("Test the fractaljs methods", {
 			return ret.join('');
 		};
 		assertEquals("I think I might go out", displayText('I ', 'think ', 'I ', 'might ', 'go ', 'out'));
-		var simonSays = displayText.partial('Simon says, "', undefined, '".');
+		var simonSays = displayText.curry('Simon says, "', undefined, '".');
 		assertEquals("Simon says, \"I think I might go out\".", simonSays('I ', 'think ', 'I ', 'might ', 'go ', 'out'));
-		simonSays = displayText.partial('"', undefined, '", Simon says.');
+		simonSays = displayText.curry('"', undefined, '", Simon says.');
 		assertEquals("\"I think I might go out\", Simon says.", simonSays('I ', 'think ', 'I ', 'might ', 'go ', 'out'));
 	},
 	"test reqNameSpace function to request a namespace" : function () {

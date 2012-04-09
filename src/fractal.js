@@ -17,25 +17,28 @@ var FF = {};
 		 * @private
 		 */
 		init = function () {
-			Function.prototype.partial = Function.prototype.partial || function () {
+			Function.prototype.curry = Function.prototype.partial || function () {
 				var fn = this, args = Array.prototype.slice.call(arguments);
 				return function () {
-					var myArgs = Array.prototype.slice.call(arguments);
+					var myArgs = Array.prototype.slice.call(arguments),
+						combined = [];
 					var arg = 0,
 						i,
 						n = 0,
+						ii,
 						l = args.length,
 						ll = myArgs.length;
 					for (i = 0; i < l; i++) {
 						if (typeof args[i] === "undefined") {
-							args.splice(i, 1);
-							while (ll--) {
+							for (ii = 0; ii < ll; ii++) {
 								n++;
-								args.splice(i, 0, myArgs[ll]);
+								combined.push(myArgs[ii]);
 							}
+						} else {
+							combined.push(args[i]);
 						}
 					}
-					return fn.apply(this, args);
+					return fn.apply(this, combined);
 				};
 			};
 			ff.mixins = ff.mixins || {};

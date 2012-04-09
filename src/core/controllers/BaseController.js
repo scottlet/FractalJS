@@ -25,8 +25,6 @@ FF.reqNameSpace('FF.core.controllers');
 	 * @param {Object} object to extend;
 	 * @return {Object} extended object
 	 */
-	BaseController.createController = function (obj) {
-		BaseController.extend(obj, BaseController);
-	};
+	BaseController.createController = BaseController.extend.curry(undefined, BaseController);
 	controllers.BaseController = BaseController;
 }(FF.core.controllers));
