@@ -1,14 +1,28 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, assertObject:false*/
-var test = {};
+/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*jshint newcap:false*/
+/*globals
+	FF:false,
+	TestCase:false,
+	assertEquals:false,
+	expectAsserts:false,
+	assertFunction:false,
+	assertNotUndefined:false,
+	assertNoException:false,
+	assertObject:false,
+	assertTrue,
+	assertFalse,
+	assertException:false,
+	assertNotEquals:false,
+	test:false
+*/
 TestCase("Test the BaseView object", {
 	setUp : function () {
 		FF.reqNameSpace('test');
 		test.TestView = function () {
-			var that = this;
-			var init = function () {
-				return that.enter();
-			};
+			var that = this,
+				init = function () {
+					return that.enter();
+				};
 			this.enter = function () {
 				return "example text 2";
 			};
@@ -20,8 +34,6 @@ TestCase("Test the BaseView object", {
 	},
 	"test createView" : function () {
 		expectAsserts(1);
-		
-		
 		assertNoException(function () {
 			FF.core.views.BaseView.createView(test.TestView);
 		});

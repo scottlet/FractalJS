@@ -1,21 +1,37 @@
-/*jslint evil:false, sloppy:false, undef:true, white:true, browser:true, plusplus:true */
-/*global ns:true, $:false, window:false, document:false */
+/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*jshint newcap:false*/
+/*globals
+	FF:false,
+	TestCase:false,
+	assertEquals:false,
+	expectAsserts:false,
+	assertFunction:false,
+	assertNotUndefined:false,
+	assertNoException:false,
+	assertObject:false,
+	assertTrue,
+	assertFalse,
+	assertException:false,
+	assertNotEquals:false,
+	test:false
+*/
 
 TestCase("Test the HashMap", {
 	"test the clear method" : function () {
 		expectAsserts(2);
 		var hash = new FF.extras.utils.HashMap();
-        	hash.put('me', 'myself');
-        	assertEquals(hash.get('me'), "myself");
-        	hash.clear();
-        	assertEquals(hash.get('me'), undefined);
+		hash.put('me', 'myself');
+		assertEquals(hash.get('me'), "myself");
+		hash.clear();
+		assertEquals(hash.get('me'), undefined);
 	},
 	"test the clone method" : function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new FF.extras.utils.HashMap(),
+			moo;
 		hash.put('me', 'myself');
 		hash.put('no', 'way');
-		var moo = hash.clone();
+		moo = hash.clone();
 		assertEquals(hash.get('me'), moo.get('me'));
 		assertEquals(hash.size(), moo.size());
 	},
@@ -59,7 +75,7 @@ TestCase("Test the HashMap", {
 		var hash = new FF.extras.utils.HashMap();
 		hash.put('me', 'myself');
 		hash.put('you', 'myself');
-		assertEquals(hash.keySet(), ['me','you']);
+		assertEquals(hash.keySet(), ['me', 'you']);
 	},
 	testPut: function () {
 		expectAsserts(2);
@@ -72,7 +88,7 @@ TestCase("Test the HashMap", {
 		expectAsserts(2);
 		var hash = new FF.extras.utils.HashMap();
 		hash.putAll({
-			me: 'myself', 
+			me: 'myself',
 			you: 'yourself'
 		});
 		assertEquals(hash.get('me'), 'myself');
@@ -90,7 +106,7 @@ TestCase("Test the HashMap", {
 		expectAsserts(1);
 		var hash = new FF.extras.utils.HashMap();
 		hash.putAll({
-			me: 'myself', 
+			me: 'myself',
 			you: 'yourself',
 			brian: 'brian'
 		});
@@ -103,20 +119,20 @@ TestCase("Test the HashMap", {
 		expectAsserts(1);
 		var hash = new FF.extras.utils.HashMap();
 		hash.putAll({
-			me: 'myself', 
+			me: 'myself',
 			you: 'yourself',
 			brian: 'brian'
 		});
-		assertEquals(hash.toString(),"me=myself,you=yourself,brian=brian");
+		assertEquals(hash.toString(), "me=myself,you=yourself,brian=brian");
 	},
 	testValues: function () {
 		expectAsserts(1);
 		var hash = new FF.extras.utils.HashMap();
 		hash.putAll({
-			me: 'myself', 
+			me: 'myself',
 			you: 'yourself',
 			brian: 'brian'
 		});
-		assertEquals(hash.values(),["myself", "yourself", "brian"]);
+		assertEquals(hash.values(), ["myself", "yourself", "brian"]);
 	}
 });

@@ -1,6 +1,20 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-
-/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, test:false, assertObject:false*/
+/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*jshint newcap:false*/
+/*globals
+	FF:false,
+	TestCase:false,
+	assertEquals:false,
+	expectAsserts:false,
+	assertFunction:false,
+	assertNotUndefined:false,
+	assertNoException:false,
+	assertObject:false,
+	assertTrue,
+	assertFalse,
+	assertException:false,
+	assertNotEquals:false,
+	test:false
+*/
 var foo, getData, customEvent;
 TestCase("Test the Events object", {
 	setUp : function () {

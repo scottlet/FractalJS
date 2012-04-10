@@ -28,7 +28,7 @@ MVC Javascript on both server running Node and client. The same code is run in
 both, the framework works out what to do with it.
 NOTE: Only the client is finished.
 
-The framework is tiny. core is 3k minified, 1.2k gzipped. 
+The framework is tiny. core is 5k minified, 2k gzipped. 
 I need to document it somewhat.
 
 Scott, 22 Mar 2012.
@@ -47,6 +47,12 @@ samples in the examples directory :)
 Scott, 19 Sept 2011.
 
 CHANGELOG:
+10-Apr-12
+=========
+Added Events object for custom events. Added Events tests. Added linting
+comments for JSLint and JSHint so it plays nicely with SublimeText.
+Rewrote the internals of partial, renamed to curry, it now actually works
+and passes tests.
 05-Apr-12
 =========
 Added Function.prototype.partial, used John Resig's as a base and extended it to deal with multiple arguments.
