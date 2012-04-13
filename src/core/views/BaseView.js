@@ -20,8 +20,11 @@ FF.reqNameSpace('FF.core.views');
 	var BaseView = FF.augmentObject({}),
 	/** PRIVATE METHODS **/
 		defaults = [],
-		loadComponents = function (namespace, arr, view, addToDefaults) {
-			var l = arr.length, ret = {};
+		loadComponents = function (namespace, uisArray, view, addToDefaults) {
+			var arr = FF.core.utils.ArrayUtils.combine(defaults, uisArray),
+				l = arr.length,
+				ret = {};
+			view = view || {};
 			while (l--) {
 				if (arr[l] && namespace[arr[l]]) {
 					if (typeof namespace[arr[l]] === 'function') {
@@ -39,14 +42,22 @@ FF.reqNameSpace('FF.core.views');
 		};
 	/** API METHODS **/
 	/**
-	 * Sets default UIs. These UIs appear on every
-	 * page.
+	 * Sets default UIs. These UIs appear on every page. Should only be
+	 * called once in your project as it replaces everything each time.
+	 * generally you would call this from your app view.
 	 * @param {Object} ns - the namespace your UIs can be found under.
 	 * @param {string} arr - An array of UI names.
 	 */
-	BaseView.setDefaultComponents = function (ns, arr) {
+	BaseView.setDefaultComponents = function (namespace, arr) {
 		defaults = [];
-		return loadComponents(ns, arr, null, true);
+		return loadComponents(namespace, arr, null, true);
+	};
+	/**
+	 * returns the array of default components.
+	 * @return {Array} [description]
+	 */
+	BaseView.getDefaultComponents = function () {
+		return defaults;
 	};
 	/**
 	 * All views require a set of components that exist within that view. Every
