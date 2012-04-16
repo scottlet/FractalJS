@@ -12,6 +12,25 @@ var FF = {};
 	"use strict";
 	var
 	/** PRIVATE METHODS **/
+		loadScript = function (src, cb, load, len, num) {
+			var s = document.createElement('script');
+			s.type = 'text/javascript';
+			s.src = src;
+			s.async = false;
+			s.onload = s.onreadystatechange =  function () {
+				var state = s.state;
+				if ((!state || /loaded|complete/.test(state))) {
+					load--;
+					if (!load && len === num) {
+						if (cb && !cb.called) {
+							cb.call(this);
+							cb.called = true;
+						}
+					}
+				}
+			};
+			document.getElementsByTagName('head')[0].appendChild(s);
+		},
 		/**
 		 * initialise the object
 		 * @private
@@ -98,8 +117,7 @@ var FF = {};
 			load = 0,
 			n,
 			docallback = false,
-			namespaceTest,
-			loadScript;
+			namespaceTest;
 		namespaceTest = function (namespace, test) {
 			var ret = namespace,
 				strArr = test.split('.'),
@@ -120,25 +138,6 @@ var FF = {};
 			}
 			return ret;
 		};
-		loadScript = function (src, cb, len) {
-			var s = document.createElement('script');
-			s.type = 'text/javascript';
-			s.src = src;
-			s.async = false;
-			s.onload = s.onreadystatechange =  function () {
-				var state = s.state;
-				if ((!state || /loaded|complete/.test(state))) {
-					load--;
-					if (!load && len === n) {
-						if (cb && !cb.called) {
-							cb.call(this);
-							cb.called = true;
-						}
-					}
-				}
-			};
-			document.getElementsByTagName('head')[0].appendChild(s);
-		};
 		if (typeof requires === "string") {
 			requires = [requires];
 			l = requires.length;
@@ -149,7 +148,7 @@ var FF = {};
 			if (typeof namespaceTest(ff, requires[n]) === "undefined") {
 				src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
 				if (ff.finished) {
-					loadScript(src, callback, load, requires.length);
+					loadScript(src, callback, load, requires.length, n);
 				} else {
 					docallback = true;
 					document.write('<script type="text/javascript" src="' + src + '"><\/script>');
@@ -203,5 +202,6 @@ var FF = {};
 		}
 		return object;
 	};
+	ff.loadScript = loadScript;
 	init();
 }(FF));

@@ -38,6 +38,14 @@ TestCase("Test the BaseController object", {
 			init();
 		};
 		FF.core.views.BaseView.createView(test.TestView);
+		test.string = "I think {token1} should be replaced with {token2} and {token3} or {token4}";
+		test.tokens = {
+			token1 : 'life',
+			token3 : 'death',
+			token2 : 'taxis',
+			token4 : 'bling',
+			token6 : 'foo'
+		};
 	},
 	tearDown : function () {
 		test.TestController = null;
@@ -53,5 +61,35 @@ TestCase("Test the BaseController object", {
 		test.TestController.enter();
 		assertObject(test.TestView);
 		assertEquals(test.TestController.getExampleText(), "example text");
+	},
+	"test tokenizer" : function () {
+		expectAsserts(3);
+		FF.core.controllers.BaseController.createController(test.TestController);
+		test.TestController = new test.TestController();
+		assertEquals('I think life should be replaced with taxis and death or bling', test.TestController.tokeniser(test.string, test.tokens));
+		assertNotEquals('I like foo and foo with foo', test.TestController.tokeniser('I like {token5} and {token5} with {token5}', test.tokens));
+		assertEquals('I like foo and foo with foo', test.TestController.tokeniser('I like {token6} and {token6} with {token6}', test.tokens));
+	}
+});
+AsyncTestCase("Test the getData function asynchronously", {
+	"test getData" : function (queue) {
+		expectAsserts(1);
+		var dataObj;
+		queue.call('call getData', function (callbacks) {
+			var options = {
+				url : 'http://api.flickr.com/services/feeds/photos_public.gne?format=json',
+				error : function () {
+					return 'error';
+				},
+				jsonp : 'jsonFlickrFeed',
+				success : callbacks.add(function (data) {
+					dataObj = data;
+				})
+			};
+			FF.core.controllers.BaseController.getData(options);
+		});
+		queue.call('check getData returned something', function () {
+			assertObject(dataObj);
+		});
 	}
 });

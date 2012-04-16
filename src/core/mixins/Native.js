@@ -11,6 +11,10 @@ FF.reqNameSpace('FF.extras.mixins');
 		OBJMIXINS,
 		UIMIXINS,
 		that,
+		dataObj = {},
+		getAttr = function (str, attr) {
+			return str.split(new RegExp('\\b' + attr + '='))[1] || ''.split('&')[0];
+		},
 		NativeUI = function (object) {
 			var i;
 			for (i in OBJMIXINS) {
@@ -26,6 +30,61 @@ FF.reqNameSpace('FF.extras.mixins');
 			var Node = document.getElementById(id);
 			augment(Node);
 			return Node;
+		},
+		NativeController = function (Controller) {
+			Controller.createXHR = function () {
+				var xhr,
+					XHR = {};
+				if (window.XMLHttpRequest) {
+					xhr = new window.XMLHttpRequest();
+				} else if (window.ActiveXObject) {
+					xhr = new ActiveXObject('MSXML2.XMLHTTP.3.0');
+				} else {
+					return null;
+				}
+				XHR.open = function (url, callback, error) {
+
+				};
+				XHR.error = function () {
+
+				};
+				return XHR;
+			};
+			Controller.createJSONP = function (cbname) {
+				var fn = cbname || 'f' + (new Date().getTime()).toString(16),
+					JSONP = {};
+				JSONP.open = function (url, callback, error) {
+					var c,
+						t,
+						cb = function () {
+							if (callback) {
+								callback(dataObj[fn]);
+							}
+						};
+					t = getAttr(url, 'callback');
+					if (t) {
+						fn = t;
+					} else {
+						c = '?';
+						if (url.indexOf('?') !== -1) {
+							c = '&';
+						}
+						url += c + '=' + fn;
+					}
+					window[fn] = function (data) {
+						dataObj[fn] = data;
+					};
+					try {
+						FF.loadScript(url, cb, 1, 0, 0);
+					} catch (ex) {
+						error(ex);
+					}
+				};
+				JSONP.error = function () {
+					//something
+				};
+				return JSONP;
+			};
 		};
 	augment = function (Nodes) {
 		var i;
@@ -79,6 +138,8 @@ FF.reqNameSpace('FF.extras.mixins');
 	};
 	mixins.NativeUI = NativeUI;
 	mixins.NativeSelector = NativeSelector;
+	mixins.NativeController = NativeController;
 }(FF.extras.mixins));
 FF.mixins.UI = FF.extras.mixins.NativeUI;
 FF.mixins.Selector = FF.extras.mixins.NativeSelector;
+FF.mixins.Controller = FF.extras.mixins.NativeController;
