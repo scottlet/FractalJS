@@ -71,7 +71,7 @@ TestCase("Test the BaseController object", {
 		assertEquals('I like foo and foo with foo', test.TestController.tokeniser('I like {token6} and {token6} with {token6}', test.tokens));
 	}
 });
-AsyncTestCase("Test the getData function asynchronously", {
+AsyncTestCase("Test the JSONP getData function asynchronously", {
 	"test getData" : function (queue) {
 		expectAsserts(1);
 		var dataObj;
@@ -88,7 +88,7 @@ AsyncTestCase("Test the getData function asynchronously", {
 			};
 			FF.core.controllers.BaseController.getData(options);
 		});
-		queue.call('check getData returned something', function () {
+		queue.call('check getData returned an object from flickr.', function () {
 			assertObject(dataObj);
 		});
 	}
