@@ -13,13 +13,13 @@ FF.reqNameSpace('FF.extras.mixins');
 			i,
 			that;
 		OBJMIXINS = {
-			open: function (callback) {
+			superOpen: function (callback) {
 				that = that || this;
 				that.domNode.fadeIn(function () {
 					return (callback) ? callback() : null;
 				});
 			},
-			close: function (callback) {
+			superClose: function (callback) {
 				that = that || this;
 				that.domNode.fadeOut(function () {
 					that.domNode.hide();
