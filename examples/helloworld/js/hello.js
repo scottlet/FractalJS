@@ -50,6 +50,7 @@ var HelloNamespace = {};
 			/** if (runonce) {
 				// Things you only need to run once.
 			} **/
+			that.uis.HelloWorld.open();
 		};
 		init();
 	};
@@ -60,6 +61,23 @@ var HelloNamespace = {};
 				HelloWorld.setupUI('HelloWorld');
 			};
 		HelloWorld.view = view;
+		HelloWorld.open = function () {
+			var options = {
+				url : 'http://api.flickr.com/services/feeds/photos_public.gne?format=json',
+				error : function () {
+					return 'error';
+				},
+				jsonp : 'jsonFlickrFeed',
+				success : function (data) {
+					console.log('data', data)
+				}
+			};
+			HelloWorld.domNode.find('.tst').bind('click', function (e) {
+				e.preventDefault();
+				FF.core.controllers.BaseController.getData(options);
+			});
+			HelloWorld.superOpen();
+		};
 		init();
 	};
 	FF.core.uis.BaseUI.createUI(ns.uis.HelloWorld);

@@ -75,7 +75,7 @@ FF.reqNameSpace('FF.extras.mixins');
 						dataObj[fn] = data;
 					};
 					try {
-						FF.loadScript(url, cb, 1, 0, 0);
+						FF.loadScript(url, cb, 1, 0, 0, error);
 					} catch (ex) {
 						error(ex);
 					}
@@ -99,12 +99,12 @@ FF.reqNameSpace('FF.extras.mixins');
 		return Nodes;
 	};
 	OBJMIXINS = {
-		open: function (callback) {
+		superOpen: function (callback) {
 			that = that || this;
 			that.domNode.style.display = 'block';
 			return (callback) ? callback() : null;
 		},
-		close: function (callback) {
+		superClose: function (callback) {
 			that = that || this;
 			that.domNode.style.display = 'none';
 			return (callback) ? callback() : null;
@@ -132,6 +132,20 @@ FF.reqNameSpace('FF.extras.mixins');
 			}
 			for (n = 0; n < l; n++) {
 				ret.push(augment(NodeList[n].parentNode.removeChild(NodeList[n])));
+			}
+			return ret;
+		},
+		bind : function (str, func) {
+			var NodeList = this,
+			ret = [],
+			l = NodeList.length,
+			n;
+			if (!NodeList.item) {
+				NodeList = [NodeList];
+			}
+			for (n = 0; n < l; n++) {
+				NodeList[n].addEventListener(str, func, true);
+				ret.push(augment(NodeList[n]));
 			}
 			return ret;
 		}

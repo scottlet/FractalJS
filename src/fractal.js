@@ -12,7 +12,7 @@ var FF = {};
 	"use strict";
 	var
 	/** PRIVATE METHODS **/
-		loadScript = function (src, cb, load, len, num) {
+		loadScript = function (src, cb, load, len, num, err) {
 			var s = document.createElement('script');
 			s.type = 'text/javascript';
 			s.src = src;
@@ -22,11 +22,17 @@ var FF = {};
 				if ((!state || /loaded|complete/.test(state))) {
 					load--;
 					if (!load && len === num) {
-						if (cb && !cb.called) {
+						if (cb && typeof cb === "function" && !cb.called) {
 							cb.call(this);
 							cb.called = true;
 						}
 					}
+				}
+			};
+			s.onerror = function () {
+				if (err && typeof err === "function" && !err.called) {
+					err.call(this);
+					err.called = true;
 				}
 			};
 			document.getElementsByTagName('head')[0].appendChild(s);
