@@ -12,8 +12,23 @@ FF.reqNameSpace('FF.extras.mixins');
 		UIMIXINS,
 		that,
 		dataObj = {},
+		eventBind,
+		eventPrefix,
 		getAttr = function (str, attr) {
 			return str.split(new RegExp('\\b' + attr + '='))[1] || ''.split('&')[0];
+		},
+		hijack = function (callback) {
+			return function (e) {
+				if (!e || !e.stopPropagation) {
+					e = {
+						stopPropagation : window.event.cancelBubble,
+						preventDefault : function () {
+							window.event.returnValue = false;
+						}
+					};
+				}
+				callback(e);
+			};
 		},
 		NativeUI = function (object) {
 			var i;
@@ -55,10 +70,20 @@ FF.reqNameSpace('FF.extras.mixins');
 					JSONP = {};
 				JSONP.open = function (url, callback, error) {
 					var c,
+						n = 0,
 						t,
 						cb = function () {
 							if (callback) {
-								callback(dataObj[fn]);
+								if (c > 10000) {
+									if (error) {
+										error('Didn\'t get any data after 10s, check ?callback');
+									}
+								}
+								if (typeof dataObj[fn] !== "undefined") {
+									callback(dataObj[fn]);
+								} else {
+									setTimeout(cb, 100);
+								}
 							}
 						};
 					t = getAttr(url, 'callback');
@@ -143,8 +168,19 @@ FF.reqNameSpace('FF.extras.mixins');
 			if (!NodeList.item) {
 				NodeList = [NodeList];
 			}
+			if (!eventBind) {
+				if (NodeList[0].addEventListener) {
+					eventBind = 'addEventListener';
+					eventPrefix = '';
+				} else {
+					eventBind = 'attachEvent';
+					eventPrefix = 'on';
+				}
+			}
 			for (n = 0; n < l; n++) {
-				NodeList[n].addEventListener(str, func, true);
+				if (NodeList[n][eventBind]) {
+					NodeList[n][eventBind](eventPrefix + str, hijack(func), true);
+				}
 				ret.push(augment(NodeList[n]));
 			}
 			return ret;

@@ -5,9 +5,12 @@
  * @author scottvanlooy
  */
 FF.reqNameSpace('FF.extras.mixins');
-(function (mixins) {
+(function (mixins, jQuery) {
 	"use strict";
-	var jQuery = function (object) {
+	if (!jQuery) {
+		return true;
+	}
+	var jQueryMixin = function (object) {
 		var OBJMIXINS,
 			UIMIXINS,
 			i,
@@ -48,6 +51,8 @@ FF.reqNameSpace('FF.extras.mixins');
 			}
 		}
 	};
-	mixins.jQuery = jQuery;
-}(FF.extras.mixins));
-FF.mixins.UI = FF.extras.mixins.jQuery;
+	mixins.jQuery = jQueryMixin;
+}(FF.extras.mixins, window.jQuery || window.$));
+if (FF.extras.mixins.jQuery) {
+	FF.mixins.UI = FF.extras.mixins.jQuery;
+}

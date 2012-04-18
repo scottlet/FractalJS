@@ -47,6 +47,13 @@ samples in the examples directory :)
 Scott, 19 Sept 2011.
 
 CHANGELOG:
+18-Apr-12
+=========
+Added:
+Native JSONP and a stub for native XHR
+.bind for binding events (follows jQuery syntax, with the exception that it just takes two arguments: event and function)
+tests for JSONP
+code coverage plugin for tests.
 10-Apr-12
 =========
 Added Events object for custom events. Added Events tests. Added linting
