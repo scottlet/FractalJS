@@ -1,5 +1,4 @@
 /*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*jshint newcap:false*/
 /*globals
 	FF:false,
 	TestCase:false,
@@ -13,7 +12,8 @@
 	assertFalse,
 	assertException:false,
 	assertNotEquals:false,
-	test:false
+	test:false,
+	AsyncTestCase:false
 */
 TestCase("Test the BaseController object", {
 	setUp : function () {

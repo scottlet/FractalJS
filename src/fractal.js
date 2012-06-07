@@ -1,5 +1,4 @@
 /*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4, vars: true, evil:true, regexp:true */
-/*jshint plusplus: false, smarttabs:true, regexp:false */
 /*globals FF:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
 /**
  * @author scottvanlooy

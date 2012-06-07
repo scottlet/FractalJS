@@ -1,6 +1,5 @@
 /*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*jshint plusplus: false, smarttabs:true */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, ActiveXObject:false*/
 /**
  * @author scottvanlooy
  */
@@ -15,7 +14,7 @@ FF.reqNameSpace('FF.extras.mixins');
 		eventBind,
 		eventPrefix,
 		getAttr = function (str, attr) {
-			return str.split(new RegExp('\\b' + attr + '='))[1] || ''.split('&')[0];
+			return str.split((new RegExp('\\b' + attr + '='))[1] || '').split('&')[0];
 		},
 		hijack = function (callback) {
 			return function (e) {
@@ -162,9 +161,9 @@ FF.reqNameSpace('FF.extras.mixins');
 		},
 		bind : function (str, func) {
 			var NodeList = this,
-			ret = [],
-			l = NodeList.length,
-			n;
+				ret = [],
+				l = NodeList.length,
+				n;
 			if (!NodeList.item) {
 				NodeList = [NodeList];
 			}

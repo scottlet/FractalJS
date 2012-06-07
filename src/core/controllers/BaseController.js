@@ -1,5 +1,4 @@
 /*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*jshint plusplus: false, smarttabs:true */
 /*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * @author Scott van Looy
@@ -9,7 +8,7 @@ FF.reqNameSpace('FF.core.controllers');
 (function (controllers) {
 	"use strict";
 	var BaseController = FF.augmentObject({}),
-	xhrlist = [];
+		xhrlist = [];
 	/** Private methods **/
 	/** Public methods **/
 	/**
@@ -51,7 +50,7 @@ FF.reqNameSpace('FF.core.controllers');
 			}
 		}
 		return string;
-	},
+	};
 	/**
 	 * getData - gets DATA from an external resource using JSON/JSONP. Will POST
 	 * for JSON requests, can only GET for JSONP. Technically, JSONP is insecure,
