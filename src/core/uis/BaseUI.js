@@ -16,17 +16,21 @@ FF.reqNameSpace('FF.core.uis');
 	};
 	/**
 	 * setupUI - sets up a UI, caches its domnode and prepares it for use.
-	 * @param {string|object} id - the dom ID or jQuery object of the root element for the UI.
+	 * @param {string|object} id - the dom ID, className or jQuery object of the root element for the UI.
 	 */
 	BaseUI.setupUI = function (id) {
 		if (!FF.mixins.UI) {
 			FF.requires(['core.mixins.Native']);
 		}
 		FF.mixins.UI(this);
-		if (!window.jQuery || id.jquery) {
+		if (!window.jQuery) {
 			this.domNode = FF.mixins.Selector(id);
 		} else {
-			this.domNode = $(id);
+			if (id.jquery) {
+				this.domNode = id;
+			} else {
+				this.domNode = $(id);
+			}
 		}
 		this.contentNode = this.domNode.find('.content');
 		this.headerNode = this.domNode.find('.title');

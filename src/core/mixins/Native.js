@@ -41,7 +41,13 @@ FF.reqNameSpace('FF.extras.mixins');
 			if (!document.querySelectorAll) {
 				throw ('Old browser, please use jQuery mixin');
 			}
-			var Node = document.getElementById(id);
+			var Node;
+			// If we're an ID, get us.
+			if (id.charAt(0).indexOf('#') !== -1 && id.indexOf(' ') === -1) {
+				Node = document.getElementById(id);
+			} else {
+				Node = document.querySelectorAll(id);
+			}
 			augment(Node);
 			return Node;
 		},
