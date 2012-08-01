@@ -42,7 +42,9 @@ FF.reqNameSpace('FF.extras.mixins');
 				throw ('Old browser, please use jQuery mixin');
 			}
 			var Node;
-			// If we're an ID, get us.
+			// If we're an ID, get us. getElementById is faster than querySelectorAll - 
+			// this currently works about 10 times faster than jQuery for single IDs and 
+			// nearly twice as fast for more complex queries.
 			if (id.charAt(0).indexOf('#') !== -1 && id.indexOf(' ') === -1) {
 				Node = document.getElementById(id);
 			} else {
