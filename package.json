@@ -1,6 +1,6 @@
 {
   "name": "@ojoho/fractaljs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tiny JavaScript library for modern DOM manipulation and event handling",
   "type": "module",
   "main": "dist/index.js",
