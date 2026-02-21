@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FractalJS Basic Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background: #007bff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+        }
+        .box:hover {
+            transform: scale(1.1);
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>FractalJS Basic Example</h1>
+    <p>Click the box below to see event delegation in action.</p>
+    
+    <div class="box">Click me!</div>
+    
+    <div class="notification">Box was clicked!</div>
+
+    <script type="module">
+        import { delegation } from '../src/index.js';
+        
+        const { delegate } = delegation;
+        
+        // Use event delegation to handle clicks
+        delegate('click', '.box', (event, target) => {
+            const notification = document.querySelector('.notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

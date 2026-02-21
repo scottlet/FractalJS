@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal.js Breakpoint Configuration Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .status {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .status-item {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+        }
+        .mobile { background: #ff6b6b; }
+        .tablet { background: #4ecdc4; }
+        .desktop { background: #45b7d1; }
+        .mobile-nav { background: #96ceb4; }
+        .active {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .config-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-bottom: 20px;
+        }
+        .resize-info {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fractal.js Breakpoint Configuration</h1>
+    
+    <div class="container">
+        <h2>Current Configuration</h2>
+        <div class="config-display" id="configDisplay">
+            Loading configuration...
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Current Breakpoint Status</h2>
+        <div class="status">
+            <div class="status-item mobile" id="mobileStatus">Mobile</div>
+            <div class="status-item tablet" id="tabletStatus">Tablet</div>
+            <div class="status-item desktop" id="desktopStatus">Desktop</div>
+            <div class="status-item mobile-nav" id="mobileNavStatus">Mobile Nav</div>
+        </div>
+        <div class="resize-info">Resize your browser window to see breakpoint changes</div>
+    </div>
+
+    <div class="container">
+        <h2>Usage Examples</h2>
+        <h3>1. Initialize with custom breakpoints:</h3>
+        <pre><code>import { init } from 'fractal.js';
+
+init({
+  breakpoints: {
+    mobile: 600,    // Mobile: ≤600px
+    tablet: 900,    // Tablet: ≤900px  
+    desktop: 1200,  // Desktop: >900px
+    mobileNav: 500  // Mobile nav: ≤500px
+  }
+});</code></pre>
+
+        <h3>2. Import individual utilities:</h3>
+        <pre><code>import { isMobile, isTablet, getView } from 'fractal.js';
+
+// Check current breakpoint
+if (isMobile()) {
+  console.log('Mobile layout');
+}
+
+// Get current view
+const currentView = getView(); // 'mobile', 'tablet', or 'desktop'</code></pre>
+
+        <h3>3. Listen for breakpoint changes:</h3>
+        <pre><code>import { change } from 'fractal.js';
+
+change((newView) => {
+  console.log('Breakpoint changed to:', newView);
+});</code></pre>
+    </div>
+
+    <script type="module">
+        import { init, getConfig, isMobile, isTablet, isMobileNav, getView, change } from '../src/index.js';
+
+        // Initialize with custom breakpoints
+        init({
+            breakpoints: {
+                mobile: 600,    // Mobile: ≤600px
+                tablet: 900,    // Tablet: ≤900px  
+                desktop: 1200,  // Desktop: >900px
+                mobileNav: 500  // Mobile nav: ≤500px
+            }
+        });
+
+        // Display current configuration
+        function updateConfigDisplay() {
+            const config = getConfig();
+            document.getElementById('configDisplay').innerHTML = `
+                <strong>Breakpoints:</strong><br>
+                Mobile: ≤${config.breakpoints.mobile}px<br>
+                Tablet: ≤${config.breakpoints.tablet}px<br>
+                Desktop: >${config.breakpoints.tablet}px<br>
+                Mobile Nav: ≤${config.breakpoints.mobileNav}px
+            `;
+        }
+
+        // Update breakpoint status display
+        function updateStatus() {
+            const mobileStatus = document.getElementById('mobileStatus');
+            const tabletStatus = document.getElementById('tabletStatus');
+            const desktopStatus = document.getElementById('desktopStatus');
+            const mobileNavStatus = document.getElementById('mobileNavStatus');
+
+            // Reset all statuses
+            [mobileStatus, tabletStatus, desktopStatus, mobileNavStatus].forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Activate current statuses
+            if (isMobile()) mobileStatus.classList.add('active');
+            if (isTablet()) tabletStatus.classList.add('active');
+            if (getView() === 'desktop') desktopStatus.classList.add('active');
+            if (isMobileNav()) mobileNavStatus.classList.add('active');
+        }
+
+        // Listen for breakpoint changes
+        change((newView) => {
+            console.log('Breakpoint changed to:', newView);
+            updateStatus();
+        });
+
+        // Initial display
+        updateConfigDisplay();
+        updateStatus();
+
+        // Update on resize (debounced automatically by Fractal.js)
+        window.addEventListener('resize', () => {
+            updateStatus();
+        });
+    </script>
+</body>
+</html>
