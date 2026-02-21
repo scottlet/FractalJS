@@ -20,7 +20,7 @@ describe('queue', () => {
       queueRunner.add('test-queue', callback);
 
       // Test that it was added by running the queue
-      queueRunner.run('test-queue', {}, null);
+      queueRunner.run('test-queue', /** @type {Event} */ ({}), null);
 
       expect(callback).toHaveBeenCalled();
     });
@@ -40,7 +40,7 @@ describe('queue', () => {
       queueRunner.add('test-queue', callback1);
       queueRunner.add('test-queue', callback2);
 
-      queueRunner.run('test-queue', {}, null);
+      queueRunner.run('test-queue', /** @type {Event} */ ({}), null);
 
       expect(callback1).toHaveBeenCalled();
       expect(callback2).toHaveBeenCalled();
@@ -56,7 +56,7 @@ describe('queue', () => {
       queueRunner.add('test-queue', callback2);
 
       queueRunner.remove('test-queue', callback1);
-      queueRunner.run('test-queue', {}, null);
+      queueRunner.run('test-queue', /** @type {Event} */ ({}), null);
 
       expect(callback1).not.toHaveBeenCalled();
       expect(callback2).toHaveBeenCalled();
@@ -86,8 +86,10 @@ describe('queue', () => {
     it('should run all callbacks in queue', () => {
       const callback1 = vi.fn();
       const callback2 = vi.fn();
-      const mockEvent = { type: 'test' };
-      const mockBinding = { id: 'test' };
+      const mockEvent = /** @type {Event} */ ({ type: 'test' });
+      const mockBinding = /** @type {Element} */ (
+        /** @type {unknown} */ ({ id: 'test' })
+      );
 
       queueRunner.add('test-queue', callback1);
       queueRunner.add('test-queue', callback2);
@@ -100,13 +102,13 @@ describe('queue', () => {
 
     it('should handle empty queue', () => {
       expect(() => {
-        queueRunner.run('empty-queue', {}, null);
+        queueRunner.run('empty-queue', /** @type {Event} */ ({}), null);
       }).not.toThrow();
     });
 
     it('should handle non-existent queue', () => {
       expect(() => {
-        queueRunner.run('non-existent', {}, null);
+        queueRunner.run('non-existent', /** @type {Event} */ ({}), null);
       }).not.toThrow();
     });
 
@@ -120,7 +122,11 @@ describe('queue', () => {
         }
       );
 
-      queueRunner.run('test-queue', {}, mockBinding);
+      queueRunner.run(
+        'test-queue',
+        /** @type {Event} */ ({}),
+        /** @type {Element | null} */ (/** @type {unknown} */ (mockBinding))
+      );
 
       expect(mockBinding.value).toBe('test');
     });
@@ -129,7 +135,7 @@ describe('queue', () => {
       const callback = vi.fn();
 
       queueRunner.add('test-queue', callback);
-      queueRunner.run('test-queue', {}, null);
+      queueRunner.run('test-queue', /** @type {Event} */ ({}), null);
 
       expect(callback).toHaveBeenCalledWith({}, null);
     });

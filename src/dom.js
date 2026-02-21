@@ -23,3 +23,6 @@ if (!HTMLElement.prototype.closest) {
     return null;
   };
 }
+
+// Export to make this file a proper ES module
+export {};

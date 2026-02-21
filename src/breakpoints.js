@@ -86,7 +86,17 @@ export function isMobileNav() {
  * @returns {void}
  */
 export function change(cb) {
-  queue.add('breakpoints', cb);
+  // Create adapter function to match queue's expected signature
+  const adapter =
+    /** @type {(ev: Event | undefined, target: Element | null) => void} */ (
+      () => {
+        const currentView = getView();
+
+        cb(currentView);
+      }
+    );
+
+  queue.add('breakpoints', adapter);
 }
 
 /**

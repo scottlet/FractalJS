@@ -5,13 +5,18 @@ let dragging = false;
 let DEBUG = false;
 /** @type {TouchEvent|Event|null} */
 let lasttouch;
-/** @type {number|null} */
+/** @type {ReturnType<typeof setTimeout>} */
 let to;
 let clicking = false;
 
+// Map to track original functions and their adapters for deregistration
+/** @type {WeakMap<(event: Event, target: Element) => void, (ev: Event | undefined, target: Element | null) => void>} */
+const adapterMap = new WeakMap();
+
 /**
  * Register an event handler for delegated events.
- * When registering for 'resize', the callback is invoked immediately with the current state
+ * The handler will be called when the specified action occurs.
+ * For 'resize' events, the handler is called immediately with a synthetic event
  * before being added to the queue for future resize events.
  * @param {string} key - Name of the event (matches `data-action` attribute value, or 'resize')
  * @param {(event: Event, target: Element) => void} fn - Callback receiving the event and the matched element
@@ -23,7 +28,21 @@ function register(key, fn) {
     fn(new Event('resize'), document.body);
   }
 
-  queue.add(NS + key, fn);
+  // Create adapter function to match queue's expected signature
+  const adapter =
+    /** @type {(ev: Event | undefined, target: Element | null) => void} */ (
+      (ev, target) => {
+        // Ensure both parameters are defined before calling the original function
+        if (ev && target) {
+          fn(ev, target);
+        }
+      }
+    );
+
+  // Store the mapping for deregistration
+  adapterMap.set(fn, adapter);
+
+  queue.add(NS + key, adapter);
 }
 
 /**
@@ -33,7 +52,14 @@ function register(key, fn) {
  * @returns {void}
  */
 function deregister(key, fn) {
-  queue.remove(NS + key, fn);
+  // Get the adapter for the original function
+  const adapter = adapterMap.get(fn);
+
+  if (adapter) {
+    queue.remove(NS + key, adapter);
+    // Clean up the mapping
+    adapterMap.delete(fn);
+  }
 }
 
 /**

@@ -245,6 +245,7 @@ describe('breakpoints', () => {
       });
 
       const resizeCallback = mockWindow.addEventListener.mock.calls.find(
+        /** @type {(call: any[]) => boolean} */
         (call) => call[0] === 'resize'
       )?.[1];
 
@@ -270,6 +271,7 @@ describe('breakpoints', () => {
       });
 
       const orientationCallback = mockWindow.addEventListener.mock.calls.find(
+        /** @type {(call: any[]) => boolean} */
         (call) => call[0] === 'orientationchange'
       )?.[1];
 

@@ -42,7 +42,8 @@ function remove(name, cb) {
 function run(name, ev, binding) {
   const queue = queues[name];
 
-  binding = binding || null;
+  /** @type {Element | null} */
+  const processedBinding = binding || null;
 
   /**
    * Execute a single queue item
@@ -51,7 +52,7 @@ function run(name, ev, binding) {
    */
   function runItem(item) {
     if (typeof item === 'function') {
-      item.call(binding, ev, binding);
+      item.call(processedBinding, ev, processedBinding);
     }
   }
 
