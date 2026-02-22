@@ -24,7 +24,12 @@ npm install @ojoho/fractaljs
 ### ES Modules
 
 ```javascript
-import { register, deregister, breakpoints, AnimationQueue } from '@ojoho/fractaljs';
+import {
+  register,
+  deregister,
+  breakpoints,
+  AnimationQueue,
+} from '@ojoho/fractaljs';
 
 // Event delegation
 register('click', (event, target) => {
@@ -35,7 +40,12 @@ register('click', (event, target) => {
 ### CommonJS
 
 ```javascript
-const { register, deregister, breakpoints, AnimationQueue } = require('@ojoho/fractaljs');
+const {
+  register,
+  deregister,
+  breakpoints,
+  AnimationQueue,
+} = require('@ojoho/fractaljs');
 ```
 
 ### UMD (Browser)
@@ -60,7 +70,7 @@ Initialize FractalJS with custom configuration.
 import { init } from '@ojoho/fractaljs';
 
 // Use defaults (no configuration needed)
-// Defaults: mobile: 599px, tablet: 600px, desktop: 1024px, mobileNav: 599px
+// Defaults: mobile: 599px, tablet: 1024px, mobileNav: 599px
 
 // Override default breakpoints
 init({
@@ -92,17 +102,21 @@ init({
 
 | Breakpoint  | Default Value | Description                                                                                                              |
 | ----------- | ------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `mobile`    | 599px         | Maximum width for mobile layout                                                                                          |
-| `tablet`    | 600px         | Maximum width for tablet layout (optional - if not set, anything larger than mobile is tablet)                           |
-| `desktop`   | 1024px        | Maximum width for desktop layout                                                                                         |
-| `mobileNav` | 599px         | Mobile navigation breakpoint (optional - should be LARGER than mobile for showing mobile nav on slightly larger screens) |
+| `mobile`    | 599px         | Maximum width for mobile layout (0–599px)                                                                                |
+| `tablet`    | 1024px        | Maximum width for tablet layout (600–1024px); anything above is desktop                                                  |
+| `mobileNav` | 599px         | Maximum width for showing mobile navigation (optional - can be set larger than `mobile` to cover small tablets too)      |
 
-**Note:** `mobileNav` is designed to be larger than `mobile` to allow showing mobile navigation on devices that are slightly larger than mobile but still benefit from mobile navigation (e.g., small tablets).
+**Note:** `mobileNav` defaults to the same value as `mobile`. Set it higher to show mobile-style navigation on slightly larger devices (e.g., small tablets) without changing the mobile layout breakpoint.
 
 ### Configuration API
 
 ```javascript
-import { init, getConfig, getBreakpoints, updateConfig } from '@ojoho/fractaljs';
+import {
+  init,
+  getConfig,
+  getBreakpoints,
+  updateConfig,
+} from '@ojoho/fractaljs';
 
 // Initialize configuration
 init({ breakpoints: { mobile: 768 } });
@@ -113,7 +127,7 @@ console.log(config); // { breakpoints: {...}, debug: false }
 
 // Get just breakpoints
 const bp = getBreakpoints();
-console.log(bp); // { mobile: 768, tablet: 600, ... }
+console.log(bp); // { mobile: 768, tablet: 1024, ... }
 
 // Update configuration (merges with existing - does not reset other values)
 updateConfig({ debug: true });
@@ -188,7 +202,9 @@ Add a single animation to the queue. `fn` is the function to call, `time` is the
 
 ```javascript
 queue.addItem({
-  fn: () => { element.style.opacity = '1'; },
+  fn: () => {
+    element.style.opacity = '1';
+  },
   time: 1000,
 });
 ```
@@ -199,8 +215,18 @@ Replace the entire queue with a new array of animation items.
 
 ```javascript
 queue.add([
-  { fn: () => { element.style.opacity = '0'; }, time: 500 },
-  { fn: () => { element.style.display = 'none'; }, time: 200 },
+  {
+    fn: () => {
+      element.style.opacity = '0';
+    },
+    time: 500,
+  },
+  {
+    fn: () => {
+      element.style.display = 'none';
+    },
+    time: 200,
+  },
 ]);
 ```
 
@@ -307,12 +333,16 @@ const element = document.querySelector('.box');
 const queue = AnimationQueue();
 
 queue.addItem({
-  fn: () => { element.style.transform = 'translateX(100px)'; },
+  fn: () => {
+    element.style.transform = 'translateX(100px)';
+  },
   time: 500,
 });
 
 queue.addItem({
-  fn: () => { element.style.opacity = '0'; },
+  fn: () => {
+    element.style.opacity = '0';
+  },
   time: 300,
 });
 

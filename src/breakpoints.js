@@ -27,7 +27,8 @@ function setIsMobile() {
 
 /**
  * Set tablet state based on current viewport width.
- * tablet breakpoint is optional - if not set, anything larger than mobile is considered tablet.
+ * `tablet` is the maximum width of the tablet range; desktop is anything above it.
+ * If `tablet` is not set, anything wider than mobile is considered tablet.
  * @returns {void}
  */
 function setIsTablet() {
@@ -35,10 +36,10 @@ function setIsTablet() {
   const width = document.body.offsetWidth;
 
   if (breakpoints.tablet) {
-    // If tablet breakpoint is defined, check if width is in tablet range
+    // tablet is the max-width upper bound: mobile < width <= tablet
     isTabletLayout = width > breakpoints.mobile && width <= breakpoints.tablet;
   } else {
-    // If tablet breakpoint is not defined, anything larger than mobile is tablet
+    // No tablet upper bound defined: anything wider than mobile is tablet
     isTabletLayout = width > breakpoints.mobile;
   }
 }
